@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block primary %}
+
+  <!-- Heading Row -->
+  <div class="row my-4">
+
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-5">
+      <h1>{{ Car.manufacturer }} {{ Car.model }}</h1>
+      <p><span class="font-weight-bold">Rok produkcji: </span>{{ Car.prod_year }}</p>
+      <p><span class="font-weight-bold">Paliwo: </span>{{ Car.fuel }}</p>
+      <p><span class="font-weight-bold">Model silnika: </span>{{ Car.engine_model }}</p>
+      <p><span class="font-weight-bold">Pojemność silnika [ccm]: </span>{{ Car.engine_capacity }}</p>
+      <p><span class="font-weight-bold">Moment obrotowy [Nm]: </span>{{ Car.torque }}</p>
+      <p><span class="font-weight-bold">Moc silnika [KM]: </span>{{ Car.power }}</p>
+      <p><span class="font-weight-bold">Nr rejestracyjny: </span>{{ Car.reg_no }}</p>
+      <p><span class="font-weight-bold">Numer VIN: </span>{{ Car.VIN }}</p>
+      <p><span class="font-weight-bold">Przebieg [km]: </span>{{ Last_milage.milage }} (Dane z {{ Last_milage.date }})</p>
+
+    </div>
+    <div class="col-lg-7">
+      <img class="img-fluid rounded" width="500" src="{% static 'img/cars/' %}{{ Car.pic }}" alt="">
+    </div>
+    <!-- /.col-md-4 -->
+  </div>
+  <!-- /.row -->
+
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col-lg-5">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <a href="{% url 'milage' Car.id %}">Rejestr przebiegu</a><br>
+        </li>
+        <li class="list-group-item">
+          <a href="{% url 'service_plan' Car.id %}">Harmonogram</a><br>
+        </li>
+        <li class="list-group-item">
+          <a href="{% url 'action_list' Car.id %}">Dziennik napraw</a>
+        </li>
+      </ul>
+
+
+    </div>
+  </div>
+  <div class="row my-4">
+  </div>
+  <!-- /.row -->
+{% endblock %}

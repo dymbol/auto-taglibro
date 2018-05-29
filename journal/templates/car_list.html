@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% load tags %}
+{% block primary %}
+<div class="row my-4">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6">
+        <h2>Wybierz swój samochód:</h2>
+        <ul class="list-group">
+            {% for car in car_list %}
+            <li class="list-group-item">
+                <img class="img-thumbnail" width="64" src="{% static 'img/cars/' %}{{ car.pic }}" alt="">
+                <a href="{% url 'car' car.id %}">{{ car }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-lg-3">
+    </div>
+</div>
+{% endblock %}

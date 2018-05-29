@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block primary %}
+
+  <!-- Heading Row -->
+  <div class="row my-4">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-8">
+      <h1>{{ Milage.car.manufacurer }} {{ Milage.car.model }}</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Data</th>
+            <th scope="col">przebieg [km]</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for element in Milage %}
+          <tr>
+            <th scope="row"> {{ forloop.counter }}</th>
+            <td>{{ element.date|date:"d M Y" }}</td>
+            <td>{{ element.milage }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
+  <!-- /.row -->
+
+
+
+
+
+
+
+
+
+{% endblock %}

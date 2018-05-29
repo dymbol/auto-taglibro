@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% load tags %}
+{% block primary %}
+
+  <!-- Heading Row -->
+  <div class="row my-4">
+    <div class="col-lg-12">
+      <h1>{{ service_plan.1.car.manufacturer }} {{ service_plan.1.car.model }}</h1>
+
+      <table class="table table-striped small">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tytuł</th>
+              <th scope="col">Opis</th>
+              <th scope="col">Produkt</th>
+              <th scope="col">Ilość produktu</th>
+              <th scope="col">okres [km]</th>
+              <th scope="col">okres [dni]</th>
+              <th scope="col">data</th>
+            </tr>
+         </thead>
+            <tbody>
+            {% for element in service_plan %}
+                {% if element.action_milage_period or element.action_days_period  or element.action_end_date %}
+
+                  {% if element.id|action_extra_info == "KATASTROFA" %}
+                    <tr class="text-danger">
+                  {% endif %}
+                  {% if element.id|action_extra_info == "UWAGA" %}
+                     <tr class="text-warning">
+                  {% endif %}
+                  {% if element.id|action_extra_info == "NORMA" %}
+                     <tr>
+                  {% endif %}
+
+
+                      <th scope="row">
+                          {{ forloop.counter0 }}
+
+                      </th>
+                      <td>{{ element.action_popular.title|default_if_none:"" }}  {{element.title|default_if_none:""}}</td>
+                      <td>{{ element.action_popular.desc|default_if_none:"" }}{{element.desc|default_if_none:""}}</td>
+                      <td>{{ element.product|default_if_none:"" }}</td>
+                      <td>{{ element.product_quantity|default_if_none:"" }}</td>
+                      <td>
+                          {% if element.action_milage_period %}
+                             <a href="#" data-toggle="tooltip" title="pozostało {{element.id|action_extra_data_milage_left}} km">
+                                 {{ element.action_milage_period|default_if_none:"" }}
+                             </a>
+
+
+                          {% endif %}
+                      </td>
+                      <td>{% if element.action_days_period %}
+
+                            <a href="#" data-toggle="tooltip" title="(pozostało {{element.id|action_extra_data_days_left}} dni)">
+                               {{ element.action_days_period}}
+                            </a>
+                          {% endif %}
+                      </td>
+                      <td>{{ element.action_end_date|date:"d M Y"|default_if_none:"" }}</td>
+                  </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+         </table>
+
+    </div>
+  </div>
+  <!-- /.row -->
+{% endblock %}

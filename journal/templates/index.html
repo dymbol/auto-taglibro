@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block primary %}
+
+  <!-- Heading Row -->
+  <div class="row my-4">
+    <div class="col-lg-8">
+      <img class="img-fluid rounded" src="{% static 'img/bmw.jpg' %}" alt="">
+    </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-4">
+      <h1>SystemPomiaruCzasu</h1>
+      <p>System stworzony do pomiaru czasu przejazdów na imprezach typu KJS. Pomysł stworzenia aplikajci narodził się na torze treningowym w Rusocinie</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'race_list' %}">Zobacz Imprezy!</a>
+    </div>
+    <!-- /.col-md-4 -->
+  </div>
+  <!-- /.row -->
+
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col-lg-8">
+      <h1>Akcje</h1>
+      <p>klnvrfokj jkr jirpg poij porjeg p</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'race_list' %}">Zobacz Imprezy!</a>
+    </div>
+  </div>
+  <!-- /.row -->
+{% endblock %}
