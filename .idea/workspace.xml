@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e355ef5-d1c5-4be9-99a2-14beb0849980" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/journal/templates/login.html" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/autotaglibro/settings.py" afterPath="$PROJECT_DIR$/autotaglibro/settings.py" />
-      <change beforePath="$PROJECT_DIR$/journal/templates/change_track.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/journal/templates/race_list.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/journal/templates/results_sum.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/journal/templates/results_time_attack.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/journal/templates/teams.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/journal/templates/time_meter.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/journal/urls.py" afterPath="$PROJECT_DIR$/journal/urls.py" />
-      <change beforePath="$PROJECT_DIR$/journal/views.py" afterPath="$PROJECT_DIR$/journal/views.py" />
+      <change beforePath="$PROJECT_DIR$/journal/templates/base.html" afterPath="$PROJECT_DIR$/journal/templates/base.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -88,7 +78,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/journal/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
@@ -96,6 +86,16 @@
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/journal/templates/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="50" column="17" lean-forward="false" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -156,6 +156,7 @@
         <option value="$PROJECT_DIR$/autotaglibro/settings.py" />
         <option value="$PROJECT_DIR$/journal/views.py" />
         <option value="$PROJECT_DIR$/journal/urls.py" />
+        <option value="$PROJECT_DIR$/journal/templates/base.html" />
       </list>
     </option>
   </component>
@@ -458,6 +459,14 @@
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/journal/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="50" column="17" lean-forward="false" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
