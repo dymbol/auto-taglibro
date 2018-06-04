@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib import messages
+import datetime
 from journal import extras
 
 
@@ -57,6 +58,21 @@ def milage_list(request, car_id):
     context = {}
     context["Milage"] = Milage.objects.filter(car_id=car_id).order_by('-date')
     return render(request, 'milage.html', context)
+
+@login_required
+def update_milage(request, car_id):
+    context = {}
+    context["car_id"] = car_id
+
+    if request.method == "POST":
+        milage = request.POST['milage']
+        if milage.isdigit():
+            new_milage = Milage(car_id=car_id, milage=milage, date=datetime.datetime.now())
+            new_milage.save()
+            messages.info(request, " Przebieg dodany")
+            return redirect('car_list')
+    else:
+        return render(request, 'update_milage.html', context)
 
 @login_required
 def service_plan(request, car_id):
