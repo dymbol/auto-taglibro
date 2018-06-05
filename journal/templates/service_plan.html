@@ -40,8 +40,8 @@
                           {{ forloop.counter0 }}
 
                       </th>
-                      <td>{{ element.action_popular.title|default_if_none:"" }} ; {{element.title|default_if_none:""}}</td>
-                      <td>{{ element.action_popular.desc|default_if_none:"" }} ; {{element.desc|default_if_none:""}}</td>
+                      <td>{{ element.action_popular.title|default_if_none:"" }} &nbsp {{element.title|default_if_none:""}}</td>
+                      <td>{{ element.action_popular.desc|default_if_none:"" }} &nbsp {{element.desc|default_if_none:""}}</td>
                       <td>{{ element.product|default_if_none:"" }}</td>
                       <td>{{ element.product_quantity|default_if_none:"" }}</td>
                       <td>
