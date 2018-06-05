@@ -49,7 +49,7 @@ class Milage(models.Model):
     date = models.DateTimeField()
 
     def __str__(self):
-        return str(self.milage)
+        return str(self.car + ": " + self.milage)
 
 
 class ActionPopular(models.Model):
