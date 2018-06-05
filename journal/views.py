@@ -40,7 +40,6 @@ def logoutuser(request):
 def car_list(request):
     context = {}
     context["car_list"] = Car.objects.filter(owner=request.user)
-    print(request.user)
     return render(request, 'car_list.html', context)
 
 @login_required

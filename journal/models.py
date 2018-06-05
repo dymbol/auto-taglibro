@@ -39,6 +39,9 @@ class Car(models.Model):
     def __str__(self):
         return "{} {} {}".format(self.manufacturer, self.model, round(self.engine_capacity/1000, 1))
 
+    def getName(self):
+        return "{} {} {}".format(self.manufacturer, self.model, round(self.engine_capacity / 1000, 1))
+
     class Meta:
         ordering = ['manufacturer', 'model', 'engine_capacity']
 
@@ -49,7 +52,7 @@ class Milage(models.Model):
     date = models.DateTimeField()
 
     def __str__(self):
-        return str(self.car + ": " + self.milage)
+        return str("{} : {}".format(self.milage, self.car.getName()))
 
 
 class ActionPopular(models.Model):

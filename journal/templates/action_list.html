@@ -43,7 +43,7 @@
               </td>
               <td>{{ element.product|default_if_none:"" }}</td>
               <td>{{ element.cost }}</td>
-              <td>{{ element.milage }}</td>
+              <td>{{ element.milage.milage }}</td>
               <td>{{ element.date|date:"d M Y" }}</td>
             </tr>
             {% endfor %}
