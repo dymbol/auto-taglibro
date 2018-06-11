@@ -22,7 +22,7 @@ def Check_When_Do_Action(action_template_id):
     try:
         last_milage = Milage.objects.filter(car=this_action_template.car).order_by('-milage')[0]
     except:
-        last_milage = Milage(milage=0, date=datetime.datetime(1986, 1, 1, 18, 00, tzinfo=timezone.utc))
+        last_milage = Milage(milage=0, date=this_action_template.car.first_registration)
 
     current_date = datetime.now(timezone.utc)
 

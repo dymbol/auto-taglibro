@@ -25,6 +25,7 @@ class Car(models.Model):
     prod_year = models.DecimalField(decimal_places=0, max_digits=4,  null=True) #XXXX
     engine_model = models.CharField(max_length=24, blank=True, null=True)
     VIN = models.CharField(max_length=30, blank=True, null=True)
+    first_registration = models.DateField()
     fuel_choices = (
         ("gasoline", "gasoline"),
         ("diesel", "diesel"),
@@ -49,7 +50,7 @@ class Car(models.Model):
 class Milage(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     milage = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)  # unit: km
-    date = models.DateTimeField()
+    date = models.DateField()
 
     def __str__(self):
         return str("{} : {}".format(self.milage, self.car.getName()))
@@ -70,7 +71,7 @@ class ActionTemplate(models.Model):
     desc = models.CharField(max_length=224, blank=True, null=True)      #if action is not very popular add desc here
     action_milage_period = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)
     action_days_period = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)
-    action_end_date = models.DateTimeField(blank=True, null=True)  # end date if date is strict
+    action_end_date = models.DateField(blank=True, null=True)  # end date if date is strict
     product = models.CharField(max_length=224, blank=True, null=True)
     product_quantity = models.CharField(max_length=224, blank=True, null=True)
 
@@ -84,7 +85,7 @@ class ActionTemplate(models.Model):
 class Action(models.Model):
     ActionTemplate = models.ForeignKey(ActionTemplate, on_delete=models.CASCADE)
     milage = models.ForeignKey(Milage, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateField()
     comment = models.CharField(max_length=224)
     cost = models.DecimalField(decimal_places=2, max_digits=9, blank=True, null=True)# cost in PLN
     product = models.CharField(max_length=224, blank=True, null=True)
