@@ -14,17 +14,17 @@ def Check_When_Do_Action(action_template_id):
     except:
         last_action = Action()
         last_action.ActionTemplate = this_action_template
-        last_action.date = datetime(1986, 1, 1, 18, 00, tzinfo=timezone.utc)
+        last_action.date = this_action_template.car.first_registration
 
         last_action.milage = Milage(
             milage=0,
-            date=datetime(1986, 1, 1, 18, 00, tzinfo=timezone.utc))
+            date=this_action_template.car.first_registration)
     try:
         last_milage = Milage.objects.filter(car=this_action_template.car).order_by('-milage')[0]
     except:
         last_milage = Milage(milage=0, date=this_action_template.car.first_registration)
 
-    current_date = datetime.now(timezone.utc)
+    current_date = datetime.now(timezone.utc).date()
 
     if this_action_template.action_milage_period:
         milage_left = (last_action.milage.milage + this_action_template.action_milage_period) - last_milage.milage
