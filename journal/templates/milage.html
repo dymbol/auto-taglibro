@@ -20,7 +20,7 @@
           {% for element in Milage %}
           <tr>
             <th scope="row"> {{ forloop.counter }}</th>
-            <td>{{ element.date|date:"d m Y" }}</td>
+            <td>{{ element.date|date:"d.m.Y" }}</td>
             <td>{{ element.milage }}</td>
           </tr>
           {% endfor %}
