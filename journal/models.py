@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import os
 from django.contrib.auth.models import Group
 
 
@@ -95,3 +96,13 @@ class Action(models.Model):
             return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.action_popular.title)
         else:
             return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.title)
+
+
+class File(models.Model):
+
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    file_path = models.CharField(max_length=224, blank=True, null=True)
+    desc = models.CharField(max_length=224, blank=True, null=True)
+
+    def __str__(self):
+        return os.path.basename(self.file_path)

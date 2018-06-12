@@ -86,3 +86,8 @@ def action_list(request, car_id):
     return render(request, 'action_list.html', context)
 
 
+@login_required
+def files(request, car_id):
+    context = {}
+    context["files"] = File.objects.filter(car=car_id)
+    return render(request, 'files.html', context)
