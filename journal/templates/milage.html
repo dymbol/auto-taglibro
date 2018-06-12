@@ -4,9 +4,9 @@
 
   <!-- Heading Row -->
   <div class="row my-4">
-    <div class="col-lg-2">
+    <div class="col-lg-6" id="chartContainer">
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-6">
       <h1>{{ Milage.car.manufacurer }} {{ Milage.car.model }}</h1>
       <table class="table table-striped">
         <thead>
@@ -20,16 +20,43 @@
           {% for element in Milage %}
           <tr>
             <th scope="row"> {{ forloop.counter }}</th>
-            <td>{{ element.date|date:"d M Y" }}</td>
+            <td>{{ element.date|date:"d m Y" }}</td>
             <td>{{ element.milage }}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-    </div>
-    <div class="col-lg-2">
+
     </div>
   </div>
+  <script type="text/javascript">
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer",
+            {
+
+            axisX:{
+                title: "Czas",
+                gridThickness: 2
+            },
+            axisY: {
+                title: "Przebieg [km]"
+            },
+            data: [
+            {
+                type: "area",
+                dataPoints: [//array
+                {% for element in Milage %}
+                  { x: new Date({{ element.date|date:"Y" }}, {{ element.date|date:"m" }}, {{ element.date|date:"d" }}), y: {{ element.milage }}},
+                {% endfor %}
+                ]
+            }
+            ]
+        });
+
+            chart.render();
+        }
+        </script>
+        <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <!-- /.row -->
 
 
