@@ -87,6 +87,13 @@ def action_list(request, car_id):
 
 
 @login_required
+def action_list_by_tmpl(request, tmplaction_id):
+    context = {}
+    context["action_list"] = Action.objects.filter(ActionTemplate__id=tmplaction_id).order_by('-date')
+    return render(request, 'action_list.html', context)
+
+
+@login_required
 def files(request, car_id):
     context = {}
     context["files"] = File.objects.filter(car=car_id)
@@ -97,4 +104,5 @@ def files(request, car_id):
 def tmpl_action(request, tmplaction_id):
     context = {}
     context["TmplAction"] = ActionTemplate.objects.filter(id=tmplaction_id)[0]
+    print(context["TmplAction"])
     return render(request, 'template_action.html', context)

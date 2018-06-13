@@ -40,7 +40,7 @@
                           {{ forloop.counter0 }}
 
                       </th>
-                      <td>{{ element.getName }}</td>
+                <td><a href="{% url 'tmpl_action' element.id %}">{{ element.getName }}</a></td>
                       <td>{{ element.getDesc }}</td>
                       <td>{{ element.product|default_if_none:"" }}</td>
                       <td>{{ element.product_quantity|default_if_none:"" }}</td>

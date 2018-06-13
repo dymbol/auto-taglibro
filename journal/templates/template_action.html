@@ -5,34 +5,15 @@
   <!-- Heading Row -->
   <div class="row my-4">
     <div class="col-lg-6">
-      <h1>{{ TmplAction.car.manufacurer }} {{ TmplAction.car.model }}</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Nazwa</th>
-            <th scope="col">Opis</th>
-            <th scope="col">wymiana [km]</th>
-            <th scope="col">wymiana [miesięcy]</th>
-            <th scope="col">Deadline</th>
-            <th scope="col">Produkt</th>
-            <th scope="col">Ilość produktu</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td scope="col">{{ TmplAction.getName }}</td>
-            <td scope="col">{{ TmplAction.desc }}</td>
-            <td scope="col">{{ TmplAction.action_milage_period }}</td>
-            <td scope="col">{{ TmplAction.action_days_period }}</td>
-            <td scope="col">{{ TmplAction.action_end_date }}</td>
-            <td scope="col">{{ TmplAction.product }}</td>
-            <td scope="col">{{ TmplAction.product_quantity }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-    <div class="col-lg-6" id="chartContainer">
+      <h1>{{ TmplAction.car.manufacturer }} {{ TmplAction.car.model }}</h1>
+      <h2>{{ TmplAction.getName }}</h2>
+        <p><span class="font-weight-bold">Opis: </span>{{ TmplAction.getDesc }}</p>
+        <p><span class="font-weight-bold">wymiana [km]: </span>{{ TmplAction.action_milage_period }}</p>
+        <p><span class="font-weight-bold">wymiana [miesięcy]: </span>{{ TmplAction.action_days_period }}</p>
+        <p><span class="font-weight-bold">Deadline: </span>{{ TmplAction.action_end_date }}</p>
+        <p><span class="font-weight-bold">Produkt: </span>{{ TmplAction.product }}</p>
+        <p><span class="font-weight-bold">Ilość produktu: </span>{{ TmplAction.product_quantity }}</p>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'action_list_by_tmpl' TmplAction.id %}'">Lista wystąpień</button>
     </div>
   </div>
   <!-- /.row -->
