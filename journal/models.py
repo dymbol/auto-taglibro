@@ -82,6 +82,22 @@ class ActionTemplate(models.Model):
         else:
             return "{} {}".format(self.car, self.title)
 
+    def getName(self):
+        if self.action_popular:
+            return "{}".format(self.action_popular.title)
+        else:
+            return "{}".format(self.title)
+
+    def getDesc(self):
+        out = ""
+        if self.action_popular:
+            out = "{}".format(self.action_popular.desc)
+
+        if self.desc:
+            return "{} ; {}".format(out, self.desc)
+        else:
+            return out
+
 
 class Action(models.Model):
     ActionTemplate = models.ForeignKey(ActionTemplate, on_delete=models.CASCADE)

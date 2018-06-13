@@ -91,3 +91,10 @@ def files(request, car_id):
     context = {}
     context["files"] = File.objects.filter(car=car_id)
     return render(request, 'files.html', context)
+
+
+@login_required
+def tmpl_action(request, tmplaction_id):
+    context = {}
+    context["TmplAction"] = ActionTemplate.objects.filter(id=tmplaction_id)[0]
+    return render(request, 'template_action.html', context)
