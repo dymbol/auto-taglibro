@@ -23,8 +23,6 @@
          </thead>
             <tbody>
             {% for element in service_plan %}
-                {% if element.action_milage_period or element.action_days_period  or element.action_end_date %}
-
                   {% if element.id|action_extra_info == "KATASTROFA" %}
                     <tr class="text-danger">
                   {% endif %}
@@ -37,7 +35,7 @@
 
 
                       <th scope="row">
-                          {{ forloop.counter0 }}
+                          {{ forloop.counter }}
 
                       </th>
                 <td><a href="{% url 'tmpl_action' element.id %}">{{ element.getName }}</a></td>
@@ -67,7 +65,7 @@
                       </td>
                       <td>{{ element.action_end_date|date:"d M Y"|default_if_none:"" }}</td>
                   </tr>
-                {% endif %}
+
             {% endfor %}
             </tbody>
          </table>

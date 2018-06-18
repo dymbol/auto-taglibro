@@ -76,7 +76,7 @@ def update_milage(request, car_id):
 @login_required
 def service_plan(request, car_id):
     context = {}
-    context["service_plan"] = ActionTemplate.objects.filter(car_id=car_id).order_by('action_milage_period')
+    context["service_plan"] = ActionTemplate.objects.filter(car_id=car_id, periodic=True).order_by('action_milage_period')
     return render(request, 'service_plan.html', context)
 
 @login_required
