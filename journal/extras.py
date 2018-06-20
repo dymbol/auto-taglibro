@@ -72,3 +72,20 @@ def Check_When_Do_Action(action_template_id):
         "disaster": disaster,
         "msg": msg
     }
+
+def SendNotifications():
+    owners = Owner.objects.all()
+    for owner in owners:
+        msg = ""
+        cars = Car.objects.filter(owner=owner)
+        for car in cars:
+            action_counter = 0
+            msg += "Samochód: {}\n".format(car)
+            actmpl = ActionTemplate.objects.filter(car=car)
+            for action in actmpl:
+                check = Check_When_Do_Action(action.id)
+                if check["warning"] or check["disaster"]:
+                    action_counter += 1
+                    msg += "{} => {}\n".format(action.getName(), check["msg"])
+            if action_counter > 1:
+                print(msg)
