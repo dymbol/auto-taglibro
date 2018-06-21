@@ -1,5 +1,6 @@
 from journal.models import *
 from datetime import datetime, timedelta, timezone
+from django.conf import settings
 
 
 def Check_When_Do_Action(action_template_id):
@@ -74,7 +75,10 @@ def Check_When_Do_Action(action_template_id):
     }
 
 def SendNotifications():
+    import telegram
+    bot = telegram.Bot(token=settings.TELEGRAM_TOKEN)
     owners = Owner.objects.all()
+
     for owner in owners:
         msg = ""
         cars = Car.objects.filter(owner=owner)
@@ -89,3 +93,4 @@ def SendNotifications():
                     msg += "{} => {}\n".format(action.getName(), check["msg"])
             if action_counter > 1:
                 print(msg)
+                bot.send_message(chat_id=str(owner.telegram_chat_id), text=msg)

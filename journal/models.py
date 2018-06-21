@@ -7,6 +7,7 @@ from django.contrib.auth.models import Group
 # Create your models here.
 class Owner(User):
     phone_tel = models.CharField(max_length=24, blank=True, null=True)
+    telegram_chat_id = models.DecimalField(decimal_places=0, max_digits=20, blank=True, null=True)
     SlackCon = models.CharField(max_length=24, blank=True, null=True)
     FBCon = models.CharField(max_length=24, blank=True, null=True)
 

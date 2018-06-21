@@ -5,3 +5,4 @@ dj-database-url
 python-decouple
 django_heroku
 psycopg2-binary
+python-telegram-bot
