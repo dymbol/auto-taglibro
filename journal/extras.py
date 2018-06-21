@@ -84,13 +84,16 @@ def SendNotifications():
         cars = Car.objects.filter(owner=owner)
         for car in cars:
             action_counter = 0
-            msg += "Samochód: {}\n".format(car)
+            msg += "{} {}:\n".format(u'\U0001F699', car)
             actmpl = ActionTemplate.objects.filter(car=car)
             for action in actmpl:
                 check = Check_When_Do_Action(action.id)
                 if check["warning"] or check["disaster"]:
                     action_counter += 1
-                    msg += "{} => {}\n".format(action.getName(), check["msg"])
+                    msg += "\t\t\t\t{} => {}\n".format(action.getName(), check["msg"])
             if action_counter > 1:
                 print(msg)
+                # emoji list https://apps.timwhitlock.info/emoji/tables/unicode
                 bot.send_message(chat_id=str(owner.telegram_chat_id), text=msg)
+            else:
+                msg = ""
