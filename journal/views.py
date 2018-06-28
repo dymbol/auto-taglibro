@@ -112,6 +112,8 @@ def tmpl_action(request, tmplaction_id):
 
 @csrf_exempt
 def send_notifications(request):
+    # how to call: curl -d "username=xxx&password=xxx" -X POST http://127.0.0.1:8000/notify
+    
     status = ""
     msg = ""
 
