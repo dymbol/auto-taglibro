@@ -74,11 +74,12 @@ def Check_When_Do_Action(action_template_id):
         "msg": msg
     }
 
+
 def SendNotifications():
     import telegram
     bot = telegram.Bot(token=settings.TELEGRAM_TOKEN)
     owners = Owner.objects.all()
-
+    msg_list = []
     for owner in owners:
         msg = ""
         cars = Car.objects.filter(owner=owner)
@@ -92,8 +93,10 @@ def SendNotifications():
                     action_counter += 1
                     msg += "\t\t\t\t{} => {}\n".format(action.getName(), check["msg"])
             if action_counter > 1:
-                print(msg)
                 # emoji list https://apps.timwhitlock.info/emoji/tables/unicode
                 bot.send_message(chat_id=str(owner.telegram_chat_id), text=msg)
+                msg_list.append(msg)
             else:
                 msg = ""
+
+    return msg_list

@@ -5,7 +5,9 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib import messages
 import datetime
+from django.http import JsonResponse
 from journal import extras
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 
 def login_user(request):
@@ -106,3 +108,40 @@ def tmpl_action(request, tmplaction_id):
     context["TmplAction"] = ActionTemplate.objects.filter(id=tmplaction_id)[0]
     print(context["TmplAction"])
     return render(request, 'template_action.html', context)
+
+
+@csrf_exempt
+def send_notifications(request):
+    status = ""
+    msg = ""
+
+    if request.method == "POST":
+        if 'username' in request.POST.keys() and 'password' in request.POST.keys():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    try:
+                        status = "0"
+                        msg = extras.SendNotifications()
+                    except:
+                        status = "-1"
+                        msg = "Unknown error in extras.SendNotifications()"
+                        raise
+                else:
+                    # Return a 'disabled account' error message
+                    status = "1"
+                    msg = "Authentication problem: User not active"
+            else:
+                status = "2"
+                msg = "Authentication problem: No user"
+        else:
+            status = "3"
+            msg = "Provide username and password fields in POST method"
+    else:
+        status = "4"
+        msg = "POST method required"
+
+    return JsonResponse({'status': status, 'msg': msg})
