@@ -15,6 +15,7 @@ urlpatterns = [
     path('action_list_by_tmpl/<int:tmplaction_id>', views.action_list_by_tmpl, name="action_list_by_tmpl"),
     path('files/<int:car_id>', views.files, name="files"),
     path('tmpl_action/<int:tmplaction_id>', views.tmpl_action, name="tmpl_action"),
+    path('tmpl_action_add/<int:car_id>', views.add_tmpl_action, name="add_tmpl_action"),
     path('notify', views.send_notifications, name="send_notifications")
 
 

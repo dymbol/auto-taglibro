@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from journal.models import *
+from journal.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
@@ -79,6 +80,7 @@ def update_milage(request, car_id):
 def service_plan(request, car_id):
     context = {}
     context["service_plan"] = ActionTemplate.objects.filter(car_id=car_id, periodic=True).order_by('action_milage_period')
+    context["car_id"] = car_id
     return render(request, 'service_plan.html', context)
 
 @login_required
@@ -106,14 +108,40 @@ def files(request, car_id):
 def tmpl_action(request, tmplaction_id):
     context = {}
     context["TmplAction"] = ActionTemplate.objects.filter(id=tmplaction_id)[0]
-    print(context["TmplAction"])
     return render(request, 'template_action.html', context)
+
+
+@login_required
+def add_tmpl_action(request, car_id):
+    context = {}
+    car = Car.objects.filter(id=car_id)[0]
+    if request.method == "POST":
+        form = ActionTemplateForm(request.POST)
+
+        #form
+        if form.is_valid():
+            new_tmpl = form.save(commit=False)
+            new_tmpl.car = car
+            new_tmpl.save()
+
+
+        #context["TmplAction"] = ActionTemplate.objects.filter(id=car_id)[0]
+        #print(context["TmplAction"])
+            return redirect('index')
+        else:
+            return redirect('add_tmpl_action', car_id)
+    else:
+
+        form = ActionTemplateForm()
+        context['form'] = form
+        context['car_id'] = car_id
+        return render(request, 'add_template_action.html', context)
 
 
 @csrf_exempt
 def send_notifications(request):
     # how to call: curl -d "username=xxx&password=xxx" -X POST http://127.0.0.1:8000/notify
-    
+
     status = ""
     msg = ""
 
