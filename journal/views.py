@@ -74,6 +74,8 @@ def update_milage(request, car_id):
             messages.info(request, " Przebieg dodany")
             return redirect('car_list')
     else:
+        car = Car.objects.filter(id=car_id)[0]
+        context["car"] = car
         return render(request, 'update_milage.html', context)
 
 @login_required

@@ -8,10 +8,11 @@
     <div class="col-lg-6">
         <div class="login-panel panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Wpisz aktualny przbieg [km]:</h3>
+                <h1>{{ car.manufacturer }} {{ car.model }}</h1>
+                <h3 class="panel-title">Wpisz aktualny przebieg [km]:</h3>
             </div>
             <div class="panel-body">
-                <form role="form" method="post" action="{% url 'update_milage' car_id %}">
+                <form role="form" method="post" action="{% url 'update_milage' car.id %}">
                     <fieldset>
                         {% csrf_token %}
                         <div class="form-group">
