@@ -12,6 +12,7 @@ urlpatterns = [
     path('update_milage/<int:car_id>', views.update_milage, name="update_milage"),
     path('plan/<int:car_id>', views.service_plan, name="service_plan"),
     path('actions/<int:car_id>', views.action_list, name="action_list"),
+    path('actions/add/<int:car_id>', views.add_action, name="add_action"),
     path('action_list_by_tmpl/<int:tmplaction_id>', views.action_list_by_tmpl, name="action_list_by_tmpl"),
     path('files/<int:car_id>', views.files, name="files"),
     path('tmpl_action/<int:tmplaction_id>', views.tmpl_action, name="tmpl_action"),

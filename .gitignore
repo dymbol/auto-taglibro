@@ -1,3 +1,5 @@
+autotaglibro/staticfiles/*
+db.json
 #IDEA IDE
 .idea/*
 # Byte-compiled / optimized / DLL files

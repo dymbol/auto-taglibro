@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from journal.models import *
+from django import forms
 
 
 class ActionTemplateForm(ModelForm):
@@ -26,3 +27,27 @@ class ActionTemplateForm(ModelForm):
             'product': ('Użyty produkt'),
             'product_quantity': ('Ilośc produktu')
         }
+
+
+class ActionForm(ModelForm):
+    class Meta:
+        model = Action
+        fields = ['ActionTemplate',
+                  'milage',
+                  'date',
+                  'comment',
+                  'cost',
+                  'product'
+                  ]
+        labels = {
+            'ActionTemplate': ('Akcja predefiniowana'),
+            'milage': ('Przebieg [km]'),
+            'date': ('data'),
+            'comment': ('Komentarz'),
+            'cost': ('Koszt [zł]'),
+            'product': ('Użyty produkt'),
+        }
+
+    def __init__(self, car, *args, **kwargs):
+        super(ActionForm, self).__init__(*args, **kwargs)
+        self.fields['ActionTemplate'].queryset = ActionTemplate.objects.filter(car=car)

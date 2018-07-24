@@ -140,6 +140,35 @@ def add_tmpl_action(request, car_id):
         return render(request, 'add_template_action.html', context)
 
 
+@login_required
+def add_action(request, car_id):
+    ###NOT WORKING PROPERLY!!!!
+    context = {}
+    car = Car.objects.filter(id=car_id)[0]
+    if request.method == "POST":
+        form = ActionForm(request.POST)
+
+        #form
+        if form.is_valid():
+            new_tmpl = form.save(commit=False)
+            new_tmpl.car = car
+            new_tmpl.save()
+            return redirect('index')
+        else:
+            return redirect('add_action', car_id)
+    else:
+
+        #form = ActionForm()
+        #print(form)
+        #form.ActionTemplate.queryset = ActionTemplate.objects.filter(car=car)
+        form = ActionForm(car=car)
+        form.car_id = car_id
+        print(form)
+        context['form'] = form
+        context['car_id'] = car_id
+        return render(request, 'add_action.html', context)
+
+
 @csrf_exempt
 def send_notifications(request):
     # how to call: curl -d "username=xxx&password=xxx" -X POST http://127.0.0.1:8000/notify
