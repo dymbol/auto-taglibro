@@ -172,6 +172,10 @@ def add_action(request, car_id):
 @csrf_exempt
 def send_notifications(request):
     # how to call: curl -d "username=xxx&password=xxx" -X POST http://127.0.0.1:8000/notify
+    #or
+    #curl -d "username=xxx&password=xxx&check_important=1" -X POST http://127.0.0.1:8000/notify
+    #curl -d "username=xxx&password=xxx&check_important=0" -X POST http://127.0.0.1:8000/notify
+
 
     status = ""
     msg = ""
@@ -184,13 +188,24 @@ def send_notifications(request):
 
             if user is not None:
                 if user.is_active:
-                    try:
-                        status = "0"
-                        msg = extras.SendNotifications()
-                    except:
-                        status = "-1"
-                        msg = "Unknown error in extras.SendNotifications()"
-                        raise
+                    # Let's check for very important infos in car's schedule.
+                    if 'check_important' in request.POST.keys():
+                        if request.POST['check_important'] == "1":
+                            try:
+                                status = "0"
+                                msg = extras.SendNotifications(ImportantOnly=True)
+                            except:
+                                status = "-1"
+                                msg = "Unknown error in extras.SendNotifications()"
+                                raise
+                        else:
+                            try:
+                                status = "0"
+                                msg = extras.SendNotifications(ImportantOnly=False)
+                            except:
+                                status = "-1"
+                                msg = "Unknown error in extras.SendNotifications()"
+                                raise
                 else:
                     # Return a 'disabled account' error message
                     status = "1"
@@ -198,6 +213,9 @@ def send_notifications(request):
             else:
                 status = "2"
                 msg = "Authentication problem: No user"
+
+
+
         else:
             status = "3"
             msg = "Provide username and password fields in POST method"

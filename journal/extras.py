@@ -38,7 +38,6 @@ def Check_When_Do_Action(action_template_id):
         days_left = this_action_template.action_end_date - current_date # sometimes strict date is defined
     else:
         days_left = None
-
     if this_action_template.action_end_date:   # deadline date for that action
         date_left = this_action_template.action_end_date    # sometimes strict date is defined
     elif this_action_template.action_days_period: #else count it from action_days_period
@@ -62,8 +61,15 @@ def Check_When_Do_Action(action_template_id):
             msg = msg + "Pozostało mniej niż 7 dni do wykonania serwisu!\n"
         elif (date_left - current_date).days <= 0:
             disaster = True
-            msg = msg +  "Przekroczyłeś limit dni serwisu o {} dni\n".format(abs((date_left - current_date).days))
+            msg = msg + "Przekroczyłeś limit dni serwisu o {} dni\n".format(abs((date_left - current_date).days))
 
+    if days_left is not None:
+        if 0 < days_left.days < 7:
+            warning = True
+            msg = msg + "Pozostało mniej niż 7 dni do wykonania serwisu!\n"
+        elif days_left.days <= 0:
+            disaster = True
+            msg = msg + "Przekroczyłeś limit dni serwisu o {} dni\n".format(abs((date_left - current_date).days))
 
     return {
         "milage_left": milage_left,
@@ -75,7 +81,8 @@ def Check_When_Do_Action(action_template_id):
     }
 
 
-def SendNotifications():
+def SendNotifications(ImportantOnly):
+    #ImportantOnly True will check only insurance and technical review
     import telegram
     bot = telegram.Bot(token=settings.TELEGRAM_TOKEN)
     owners = Owner.objects.all()
@@ -86,17 +93,23 @@ def SendNotifications():
         for car in cars:
             action_counter = 0
             msg += "{} {}:\n".format(u'\U0001F699', car)
-            actmpl = ActionTemplate.objects.filter(car=car)
+            if ImportantOnly is True:
+                actmpl = ActionTemplate.objects.filter(car=car, important=True)
+            else:
+                actmpl = ActionTemplate.objects.filter(car=car)
             for action in actmpl:
                 check = Check_When_Do_Action(action.id)
                 if check["warning"] or check["disaster"]:
                     action_counter += 1
                     msg += "\t\t\t\t{} => {}\n".format(action.getName(), check["msg"])
-            if action_counter > 1:
+            if action_counter > 0:
                 # emoji list https://apps.timwhitlock.info/emoji/tables/unicode
-                bot.send_message(chat_id=str(owner.telegram_chat_id), text=msg)
+                try:
+                    bot.send_message(chat_id=str(owner.telegram_chat_id), text=msg)
+                except Exception as exc:
+                    print("Error sending message!")
+                    print(exc)
                 msg_list.append(msg)
             else:
                 msg = ""
-
     return msg_list
