@@ -50,15 +50,15 @@ def Check_When_Do_Action(action_template_id):
     if milage_left is not None:
         if 0 < milage_left < 1000:
             warning = True
-            msg = "Pozostało mniej niż 1000 km do wykonania serwisu!\n"
+            msg = "Pozostało mniej niż 1000 km do wykonania akcji!\n"
         elif milage_left < 0:
             disaster = True
-            msg = "Przekroczyłeś limit km dla serwisu o {}\n".format(abs(milage_left))
+            msg = "Przekroczyłeś limit km dla akcji o {}\n".format(abs(milage_left))
 
     if date_left is not None:
         if 0 < (date_left - current_date).days < 7:
             warning = True
-            msg = msg + "Pozostało mniej niż 7 dni do wykonania serwisu!\n"
+            msg = msg + "Pozostało mniej niż 7 dni do wykonania akcji!\n"
         elif (date_left - current_date).days <= 0:
             disaster = True
             msg = msg + "Przekroczyłeś limit dni serwisu o {} dni\n".format(abs((date_left - current_date).days))
@@ -66,10 +66,10 @@ def Check_When_Do_Action(action_template_id):
     if days_left is not None:
         if 0 < days_left.days < 7:
             warning = True
-            msg = msg + "Pozostało mniej niż 7 dni do wykonania serwisu!\n"
+            msg = msg + "Pozostało mniej niż 7 dni do wykonania akcji!\n"
         elif days_left.days <= 0:
             disaster = True
-            msg = msg + "Przekroczyłeś limit dni serwisu o {} dni\n".format(abs((date_left - current_date).days))
+            msg = msg + "Przekroczyłeś limit dni o {} dni\n".format(abs((date_left - current_date).days))
 
     return {
         "milage_left": milage_left,
