@@ -4,7 +4,10 @@ register = template.Library()
 
 @register.filter
 def action_extra_data_days_left(act_tmpl_id):
-    return extras.Check_When_Do_Action(act_tmpl_id)["days_left"].days
+    if extras.Check_When_Do_Action(act_tmpl_id)["days_left"] is not None:
+        return extras.Check_When_Do_Action(act_tmpl_id)["days_left"].days
+    else:
+        return "-"
 
 @register.filter
 def action_extra_data_date_left(act_tmpl_id):

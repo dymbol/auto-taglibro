@@ -6,49 +6,41 @@
   <!-- Heading Row -->
   <div class="row my-4">
     <div class="col-lg-12">
-      <h1>{{ service_plan.1.car.manufacturer }} {{ service_plan.1.car.model }}</h1>
+      <h1>{{ service_plan.1.car.manufacturer }} {{ service_plan.1.car.model }} - Harmonogram prac</h1>
       <p><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'add_tmpl_action' car_id %}'">Dodaj wpis</button></p>
       <table class="table table-striped small">
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Tytuł</th>
-              <th scope="col">Opis</th>
-              <th scope="col">Produkt</th>
-              <th scope="col">Ilość produktu</th>
+
               <th scope="col">okres [km]</th>
               <th scope="col">okres [miesięcy]</th>
-              <th scope="col">data</th>
+              <th scope="col">deadline</th>
+              <th></th>
             </tr>
          </thead>
             <tbody>
             {% for element in service_plan %}
-                  {% if element.id|action_extra_info == "KATASTROFA" %}
-                    <tr class="text-danger">
-                  {% endif %}
-                  {% if element.id|action_extra_info == "UWAGA" %}
-                     <tr class="text-warning">
-                  {% endif %}
-                  {% if element.id|action_extra_info == "NORMA" %}
-                     <tr>
-                  {% endif %}
-
-
+                    <tr>
                       <th scope="row">
-                          {{ forloop.counter }}
-
+                          <span>{{ forloop.counter }}</span>
                       </th>
-                <td><a href="{% url 'tmpl_action' element.id %}">{{ element.getName }}</a></td>
-                      <td>{{ element.getDesc }}</td>
-                      <td>{{ element.product|default_if_none:"" }}</td>
-                      <td>{{ element.product_quantity|default_if_none:"" }}</td>
+                      <td>
+                          {% if element.id|action_extra_info == "KATASTROFA" %}
+                            <!-- https://www.elegantthemes.com/blog/resources/elegant-icon-font-->
+                                <i class="text-danger icon_tool"></i>
+                          {% endif %}
+                          {% if element.id|action_extra_info == "UWAGA" %}
+                                <i class="text-warning icon_tool"></i>
+                          {% endif %}
+                          <a href="{% url 'tmpl_action' element.id %}">{{ element.getName }}</a>
+                      </td>
                       <td>
                           {% if element.action_milage_period %}
                              <a href="#" data-toggle="tooltip" title="pozostało {{element.id|action_extra_data_milage_left}} km">
                                  {{ element.action_milage_period|default_if_none:"" }}
                              </a>
-
-
                           {% endif %}
                       </td>
                       <td>{% if element.action_days_period %}
@@ -64,6 +56,7 @@
                           {% endif %}
                       </td>
                       <td>{{ element.action_end_date|date:"d M Y"|default_if_none:"" }}</td>
+                      <td>edytuj</td>
                   </tr>
 
             {% endfor %}

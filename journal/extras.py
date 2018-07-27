@@ -38,6 +38,7 @@ def Check_When_Do_Action(action_template_id):
         days_left = this_action_template.action_end_date - current_date # sometimes strict date is defined
     else:
         days_left = None
+
     if this_action_template.action_end_date:   # deadline date for that action
         date_left = this_action_template.action_end_date    # sometimes strict date is defined
     elif this_action_template.action_days_period: #else count it from action_days_period

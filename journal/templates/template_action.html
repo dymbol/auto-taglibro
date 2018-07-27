@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tags %}
 {% load static from staticfiles %}
 {% block primary %}
 
@@ -7,12 +8,46 @@
     <div class="col-lg-6">
       <h1>{{ TmplAction.car.manufacturer }} {{ TmplAction.car.model }}</h1>
       <h2>{{ TmplAction.getName }}</h2>
-        <p><span class="font-weight-bold">Opis: </span>{{ TmplAction.getDesc }}</p>
-        <p><span class="font-weight-bold">wymiana [km]: </span>{{ TmplAction.action_milage_period }}</p>
-        <p><span class="font-weight-bold">wymiana [miesięcy]: </span>{{ TmplAction.action_days_period }}</p>
-        <p><span class="font-weight-bold">Deadline: </span>{{ TmplAction.action_end_date }}</p>
-        <p><span class="font-weight-bold">Produkt: </span>{{ TmplAction.product }}</p>
-        <p><span class="font-weight-bold">Ilość produktu: </span>{{ TmplAction.product_quantity }}</p>
+        <p><span class="font-weight-bold">Opis: </span>{{ TmplAction.getDesc|default_if_none:"-" }}</p>
+        <p><span class="font-weight-bold">wymiana [km]: </span>{{ TmplAction.action_milage_period|default_if_none:"-" }}</p>
+        <p><span class="font-weight-bold">wymiana [miesięcy]: </span>{{ TmplAction.action_days_period|default_if_none:"-" }}</p>
+        <p><span class="font-weight-bold">Deadline: </span>{{ TmplAction.action_end_date|default_if_none:"-" }}</p>
+        <p><span class="font-weight-bold">Produkt: </span>{{ TmplAction.product|default_if_none:"-" }}</p>
+        <p><span class="font-weight-bold">Ilość produktu: </span>{{ TmplAction.product_quantity|default_if_none:"-" }}</p>
+        <p><span class="font-weight-bold">Pozostało dni: </span>
+          {% if TmplAction.id|action_extra_info == "KATASTROFA" %}
+            <span class="text-danger">
+          {% endif %}
+          {% if TmplAction.id|action_extra_info == "UWAGA" %}
+            <span class="text-warning">
+          {% endif %}
+          {% if TmplAction.id|action_extra_info == "NORMA" %}
+            <span >
+
+          {% endif %}
+              {{TmplAction.id|action_extra_data_days_left|default_if_none:"-"}}
+            </span>
+
+
+
+
+        </p>
+        <p><span class="font-weight-bold">Pozostało kilometrów: </span>
+          {% if TmplAction.id|action_extra_info == "KATASTROFA" %}
+            <span class="text-danger">
+          {% endif %}
+          {% if TmplAction.id|action_extra_info == "UWAGA" %}
+            <span class="text-warning">
+          {% endif %}
+          {% if TmplAction.id|action_extra_info == "NORMA" %}
+            <span >
+
+          {% endif %}
+              {{TmplAction.id|action_extra_data_milage_left|default_if_none:"-"}}
+            </span>
+
+        </p>
+
         <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'action_list_by_tmpl' TmplAction.id %}'">Lista wystąpień</button>
     </div>
   </div>
