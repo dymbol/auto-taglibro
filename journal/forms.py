@@ -50,7 +50,8 @@ class ActionForm(ModelForm):
             'file': ('Dokument (fv, paragon)')
         }
 
-    #def __init__(self, *args, **kwargs):
-    #    super(ActionForm, self).__init__(*args, **kwargs)
-    #    print("!!!!!!!!!")
-    #    self.fields['ActionTemplate'].queryset = ActionTemplate.objects.filter(car=car)
+
+class FileForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    desc = forms.CharField(widget=forms.Textarea)
+

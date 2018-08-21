@@ -103,7 +103,34 @@ def action_list_by_tmpl(request, tmplaction_id):
 def files(request, car_id):
     context = {}
     context["files"] = File.objects.filter(car=car_id)
+    context["car_id"] = car_id
     return render(request, 'files.html', context)
+
+
+@login_required
+def add_file(request, car_id):
+    context = {}
+    car = Car.objects.filter(id=car_id)[0]
+    if request.method == "POST":
+        form = FileForm(request.POST)
+
+        # form
+        if form.is_valid():
+            new_tmpl = form.save(commit=False)
+            new_tmpl.car = car
+            new_tmpl.save()
+
+            # context["TmplAction"] = ActionTemplate.objects.filter(id=car_id)[0]
+            # print(context["TmplAction"])
+            return redirect('index')
+        else:
+            return redirect('add_tmpl_action', car_id)
+    else:
+
+        form = FileForm()
+        context['form'] = form
+        context['car_id'] = car_id
+        return render(request, 'add_file.html', context)
 
 
 @login_required
