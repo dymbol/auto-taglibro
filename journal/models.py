@@ -102,21 +102,6 @@ class ActionTemplate(models.Model):
             return out
 
 
-class Action(models.Model):
-    ActionTemplate = models.ForeignKey(ActionTemplate, on_delete=models.CASCADE)
-    milage = models.ForeignKey(Milage, on_delete=models.CASCADE)
-    date = models.DateField()
-    comment = models.CharField(max_length=224, blank=True, null=True)
-    cost = models.DecimalField(decimal_places=2, max_digits=9, blank=True, null=True)# cost in PLN
-    product = models.CharField(max_length=224, blank=True, null=True)
-
-    def __str__(self):
-        if self.ActionTemplate.action_popular:
-            return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.action_popular.title)
-        else:
-            return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.title)
-
-
 class File(models.Model):
 
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
@@ -125,3 +110,21 @@ class File(models.Model):
 
     def __str__(self):
         return os.path.basename(self.file_path)
+
+
+class Action(models.Model):
+    ActionTemplate = models.ForeignKey(ActionTemplate, on_delete=models.CASCADE)
+    milage = models.ForeignKey(Milage, on_delete=models.CASCADE)
+    date = models.DateField()
+    comment = models.CharField(max_length=224, blank=True, null=True)
+    cost = models.DecimalField(decimal_places=2, max_digits=9, blank=True, null=True)# cost in PLN
+    product = models.CharField(max_length=224, blank=True, null=True)
+    file = models.ForeignKey(File, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        if self.ActionTemplate.action_popular:
+            return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.action_popular.title)
+        else:
+            return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.title)
+
+

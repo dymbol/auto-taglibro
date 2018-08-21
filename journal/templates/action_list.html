@@ -15,6 +15,7 @@
               <th>Tytuł</th>
               <th>Opis</th>
               <th>Produkt</th>
+              <th>Dokument</th>
               <th>Koszt [zł]</th>
               <th>Przebieg [km]</th>
               <th>Data</th>
@@ -42,6 +43,7 @@
                   {{ element.comment }}
               </td>
               <td>{{ element.product|default_if_none:"" }}</td>
+              <td>{{ element.file|default_if_none:"" }}</td>
               <td>{{ element.cost }}</td>
               <td>{{ element.milage.milage }}</td>
               <td>{{ element.date|date:"d M Y" }}</td>

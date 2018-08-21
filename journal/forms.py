@@ -37,7 +37,8 @@ class ActionForm(ModelForm):
                   'date',
                   'comment',
                   'cost',
-                  'product'
+                  'product',
+                  'file'
                   ]
         labels = {
             'ActionTemplate': ('Akcja predefiniowana'),
@@ -46,6 +47,7 @@ class ActionForm(ModelForm):
             'comment': ('Komentarz'),
             'cost': ('Koszt [zł]'),
             'product': ('Użyty produkt'),
+            'file': ('Dokument (fv, paragon')
         }
 
     def __init__(self, car, *args, **kwargs):
