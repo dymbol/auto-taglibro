@@ -69,7 +69,7 @@ class ActionPopular(models.Model):
 class ActionTemplate(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     periodic = models.BooleanField()    # if action is periodic
-    important = models.BooleanField()  # if action'sdate can not be exceeded (incurance, technical review)
+    important = models.BooleanField()  # if actions date can not be exceeded (incurance, technical review)
     action_popular = models.ForeignKey(ActionPopular, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=224, blank=True, null=True)     #if action is not very popular add title here
     desc = models.CharField(max_length=224, blank=True, null=True)      #if action is not very popular add desc here

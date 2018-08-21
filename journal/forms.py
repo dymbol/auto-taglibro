@@ -47,9 +47,10 @@ class ActionForm(ModelForm):
             'comment': ('Komentarz'),
             'cost': ('Koszt [zł]'),
             'product': ('Użyty produkt'),
-            'file': ('Dokument (fv, paragon')
+            'file': ('Dokument (fv, paragon)')
         }
 
-    def __init__(self, car, *args, **kwargs):
-        super(ActionForm, self).__init__(*args, **kwargs)
-        self.fields['ActionTemplate'].queryset = ActionTemplate.objects.filter(car=car)
+    #def __init__(self, *args, **kwargs):
+    #    super(ActionForm, self).__init__(*args, **kwargs)
+    #    print("!!!!!!!!!")
+    #    self.fields['ActionTemplate'].queryset = ActionTemplate.objects.filter(car=car)

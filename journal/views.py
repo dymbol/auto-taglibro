@@ -142,28 +142,27 @@ def add_tmpl_action(request, car_id):
 
 @login_required
 def add_action(request, car_id):
-    ###NOT WORKING PROPERLY!!!!
     context = {}
     car = Car.objects.filter(id=car_id)[0]
     if request.method == "POST":
         form = ActionForm(request.POST)
-
-        #form
         if form.is_valid():
-            new_tmpl = form.save(commit=False)
-            new_tmpl.car = car
-            new_tmpl.save()
+            form.save(commit=False)
             return redirect('index')
         else:
+            print(form)
+            print("NOT VALID")
             return redirect('add_action', car_id)
     else:
 
         #form = ActionForm()
         #print(form)
         #form.ActionTemplate.queryset = ActionTemplate.objects.filter(car=car)
-        form = ActionForm(car=car)
-        form.car_id = car_id
-        print(form)
+        form = ActionForm()
+        #overwriten because we want only action connected to this car
+        form.fields['ActionTemplate'] = forms.ModelChoiceField(queryset=ActionTemplate.objects.filter(car=car), label="Akcja predefiniowana")
+        form.fields['file'] = forms.ModelChoiceField(queryset=File.objects.filter(car=car), label="Dokument (fv, paragon)")
+        print(form.fields)
         context['form'] = form
         context['car_id'] = car_id
         return render(request, 'add_action.html', context)
