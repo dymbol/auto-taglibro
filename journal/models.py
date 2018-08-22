@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import os
+from datetime import datetime
 from django.contrib.auth.models import Group
 
 
@@ -103,13 +104,13 @@ class ActionTemplate(models.Model):
 
 
 class File(models.Model):
-
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    file_path = models.CharField(max_length=224, blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
     desc = models.CharField(max_length=224, blank=True, null=True)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):
-        return os.path.basename(self.file_path)
+        return os.path.basename(self.name)
 
 
 class Action(models.Model):

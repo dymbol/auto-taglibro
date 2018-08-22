@@ -112,16 +112,23 @@ def add_file(request, car_id):
     context = {}
     car = Car.objects.filter(id=car_id)[0]
     if request.method == "POST":
-        form = FileForm(request.POST)
-
-        # form
+        form = FileForm(request.POST, request.FILES)
+        print(form.fields['name'])
         if form.is_valid():
-            new_tmpl = form.save(commit=False)
-            new_tmpl.car = car
-            new_tmpl.save()
+            new_file = File(
+                car=car,
+                name=form.cleaned_data['name'],
+                desc=form.cleaned_data['desc']
+            )
+            new_file.save()
 
-            # context["TmplAction"] = ActionTemplate.objects.filter(id=car_id)[0]
-            # print(context["TmplAction"])
+            #saving file to disc
+            with open('some/file/name.txt', 'wb+') as destination:
+                for chunk in request.FILES['file'].chunks():
+                    destination.write(chunk)
+
+
+
             return redirect('index')
         else:
             return redirect('add_tmpl_action', car_id)
