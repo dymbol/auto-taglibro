@@ -20,7 +20,7 @@
           {% for element in files %}
           <tr>
             <th scope="row"> {{ forloop.counter }}</th>
-            <td><a href="{% static 'car_files/' %}{{element}}">{{ element }}</a></td>
+            <td><a href="{% static 'car_files/' %}{{element.name}}">{{ element.name }}</a></td>
             <td>{{ element.desc }}</td>
           </tr>
           {% endfor %}

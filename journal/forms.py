@@ -53,5 +53,5 @@ class ActionForm(ModelForm):
 
 class FileForm(forms.Form):
     name = forms.CharField(max_length=100, label="Nazwa pliku")
-    desc = forms.CharField(widget=forms.Textarea, label="Opis")
+    desc = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
     file = forms.FileField(label="Plik")

@@ -9,6 +9,9 @@ import datetime
 from django.http import JsonResponse
 from journal import extras
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.conf import settings
+import os
+import random
 
 
 def login_user(request):
@@ -113,25 +116,29 @@ def add_file(request, car_id):
     car = Car.objects.filter(id=car_id)[0]
     if request.method == "POST":
         form = FileForm(request.POST, request.FILES)
-        print(form.fields['name'])
         if form.is_valid():
-            new_file = File(
-                car=car,
-                name=form.cleaned_data['name'],
-                desc=form.cleaned_data['desc']
-            )
-            new_file.save()
+            try:
+                # saving file object in db
+                new_file = File(
+                    car=car,
+                    name="{}{}".format(random.choice(range(1,1000)), form.cleaned_data['name']),
+                    desc=form.cleaned_data['desc']
+                )
+                new_file.save()
 
-            #saving file to disc
-            with open('some/file/name.txt', 'wb+') as destination:
-                for chunk in request.FILES['file'].chunks():
-                    destination.write(chunk)
+                # saving file to disc
+                file_path = os.path.join(settings.DOCUMENTS_DIR, new_file.name)
+                with open(file_path, 'wb+') as destination:
+                    for chunk in request.FILES['file'].chunks():
+                        destination.write(chunk)
 
-
-
-            return redirect('index')
+                return redirect('files', car_id)
+            except:
+                print("Error writing file {}".format(form.cleaned_data['name']))
+                return redirect('files', car_id)
         else:
-            return redirect('add_tmpl_action', car_id)
+            return redirect('add_file', car_id)
+
     else:
 
         form = FileForm()

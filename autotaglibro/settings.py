@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -95,7 +94,6 @@ else:
             )
     }
 
-print(DATABASES)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -142,6 +140,8 @@ LOGIN_URL = '/login'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
+DOCUMENTS_DIR = os.path.join(BASE_DIR, 'journal', 'static', 'car_files')
+print(DOCUMENTS_DIR)
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 TELEGRAM_TOKEN = os.environ.get('TelegramToken')
 
