@@ -106,7 +106,7 @@ def action_list_by_tmpl(request, tmplaction_id):
 def files(request, car_id):
     context = {}
     context["files"] = File.objects.filter(car=car_id)
-    context["car_id"] = car_id
+    context["car"] = Car.objects.filter(id=car_id)[0]
     return render(request, 'files.html', context)
 
 
@@ -121,7 +121,10 @@ def add_file(request, car_id):
                 # saving file object in db
                 new_file = File(
                     car=car,
-                    name="{}{}".format(random.choice(range(1,1000)), form.cleaned_data['name']),
+                    name="{}{}".format(
+                        random.choice(range(1, 1000)),
+                        form.cleaned_data['name'].replace(" ", "_")
+                    ),
                     desc=form.cleaned_data['desc']
                 )
                 new_file.save()

@@ -6,8 +6,8 @@
     <div class="col-lg-2">
     </div>
     <div class="col-lg-8">
-      <h1>Lista plików dla</h1>
-      <p><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'add_file' car_id %}'">Dodaj plik</button></p>
+      <h1>Lista plików dla {{ car.getName }}</h1>
+      <p><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'add_file' car.id %}'">Dodaj plik</button></p>
       <table class="table table-striped">
         <thead>
           <tr>
