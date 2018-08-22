@@ -7,7 +7,7 @@
 
     <div class="col-lg-12">
       <h1>{{ action_list.1.ActionTemplate.car.manufacturer }} {{ action_list.1.ActionTemplate.car.model }}</h1>
-
+      <p><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'add_action' action_list.1.ActionTemplate.car.id %}'">Dodaj akcję</button></p>
       <table class="table table-striped small">
         <thead>
             <tr>
@@ -43,7 +43,7 @@
                   {{ element.comment }}
               </td>
               <td>{{ element.product|default_if_none:"" }}</td>
-              <td>{{ element.file|default_if_none:"" }}</td>
+              <td><a href="{% static 'car_files/' %}{{element.file.name}}">{{ element.file.name|default_if_none:"" }}</a></td>
               <td>{{ element.cost }}</td>
               <td>{{ element.milage.milage }}</td>
               <td>{{ element.date|date:"d M Y" }}</td>

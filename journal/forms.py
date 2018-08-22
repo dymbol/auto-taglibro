@@ -29,29 +29,43 @@ class ActionTemplateForm(ModelForm):
         }
 
 
-class ActionForm(ModelForm):
-    class Meta:
-        model = Action
-        fields = ['ActionTemplate',
-                  'milage',
-                  'date',
-                  'comment',
-                  'cost',
-                  'product',
-                  'file'
-                  ]
-        labels = {
-            'ActionTemplate': ('Akcja predefiniowana'),
-            'milage': ('Przebieg [km]'),
-            'date': ('data'),
-            'comment': ('Komentarz'),
-            'cost': ('Koszt [zł]'),
-            'product': ('Użyty produkt'),
-            'file': ('Dokument (fv, paragon)')
-        }
+# class ActionForm(ModelForm):
+#     class Meta:
+#         model = Action
+#         fields = ['ActionTemplate',
+#                   'milage',
+#                   'date',
+#                   'comment',
+#                   'cost',
+#                   'product',
+#                   'file'
+#                   ]
+#         labels = {
+#             'ActionTemplate': ('Akcja predefiniowana'),
+#             'milage': ('Przebieg [km]'),
+#             'date': ('data'),
+#             'comment': ('Komentarz'),
+#             'cost': ('Koszt [zł]'),
+#             'product': ('Użyty produkt'),
+#             'file': ('Dokument (fv, paragon)')
+#         }
 
 
 class FileForm(forms.Form):
     name = forms.CharField(max_length=100, label="Nazwa pliku")
     desc = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
     file = forms.FileField(label="Plik")
+
+
+class ActionForm(forms.Form):
+    ActionTemplate = forms.ModelChoiceField(
+        queryset=ActionTemplate.objects.all(),
+        label="Akcja predefiniowana")
+    file = forms.ModelChoiceField(
+        queryset=File.objects.all(),
+        label="Dokument (fv, paragon)")
+    milage = forms.DecimalField(label="Przebieg")
+    comment = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
+    date = forms.DateField(label="Data")
+    cost = forms.DecimalField(label="Koszt [PLN]")
+    product = forms.CharField(label="Użyty produkt")

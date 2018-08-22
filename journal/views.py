@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.conf import settings
 import os
 import random
+from decimal import *
 
 
 def login_user(request):
@@ -188,25 +189,42 @@ def add_tmpl_action(request, car_id):
 def add_action(request, car_id):
     context = {}
     car = Car.objects.filter(id=car_id)[0]
+    last_milage=Milage.objects.filter(car__id=car_id).order_by('-milage')[0].milage
     if request.method == "POST":
         form = ActionForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            return redirect('index')
+            print(form['ActionTemplate'].value())
+            new_milage = Milage(
+                car=car,
+                milage=form['milage'].value(),
+                date=form['date'].value()
+            )
+            new_milage.save()
+
+            new_action = Action(
+                ActionTemplate=ActionTemplate.objects.filter(id=form['ActionTemplate'].value())[0],
+                milage=new_milage,
+                date=form['date'].value(),
+                comment=form['comment'].value(),
+                cost=form['cost'].value(),
+                product=form['product'].value(),
+                file=File.objects.filter(id=form['file'].value())[0],
+            )
+            new_action.save()
+            return redirect('car', car_id)
         else:
-            print(form)
+            print(form.errors)
             print("NOT VALID")
             return redirect('add_action', car_id)
     else:
-
-        #form = ActionForm()
-        #print(form)
-        #form.ActionTemplate.queryset = ActionTemplate.objects.filter(car=car)
         form = ActionForm()
-        #overwriten because we want only action connected to this car
         form.fields['ActionTemplate'] = forms.ModelChoiceField(queryset=ActionTemplate.objects.filter(car=car), label="Akcja predefiniowana")
         form.fields['file'] = forms.ModelChoiceField(queryset=File.objects.filter(car=car), label="Dokument (fv, paragon)")
-        print(form.fields)
+        form.fields['milage'] = forms.DecimalField(
+            min_value=last_milage+1,
+            initial=last_milage+1,
+            label="Przebieg"
+        )
         context['form'] = form
         context['car_id'] = car_id
         return render(request, 'add_action.html', context)
@@ -214,11 +232,12 @@ def add_action(request, car_id):
 
 @csrf_exempt
 def send_notifications(request):
-    # how to call: curl -d "username=xxx&password=xxx" -X POST http://127.0.0.1:8000/notify
-    #or
-    #curl -d "username=xxx&password=xxx&check_important=1" -X POST http://127.0.0.1:8000/notify
-    #curl -d "username=xxx&password=xxx&check_important=0" -X POST http://127.0.0.1:8000/notify
-
+    '''
+    how to call: curl -d "username=xxx&password=xxx" -X POST http://127.0.0.1:8000/notify
+    or
+    curl -d "username=xxx&password=xxx&check_important=1" -X POST http://127.0.0.1:8000/notify
+    curl -d "username=xxx&password=xxx&check_important=0" -X POST http://127.0.0.1:8000/notify
+    '''
 
     status = ""
     msg = ""
