@@ -52,9 +52,9 @@ class ActionTemplateForm(ModelForm):
 
 
 class FileForm(forms.Form):
-    name = forms.CharField(max_length=100, label="Nazwa pliku")
-    desc = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
     file = forms.FileField(label="Plik")
+    desc = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
+    name = forms.CharField(max_length=100, label="Nazwa pliku")
 
 
 class ActionForm(forms.Form):
@@ -66,6 +66,6 @@ class ActionForm(forms.Form):
         label="Dokument (fv, paragon)")
     milage = forms.DecimalField(label="Przebieg")
     comment = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
-    date = forms.DateField(label="Data")
+    date = forms.DateField(label="Data", type='date')
     cost = forms.DecimalField(label="Koszt [PLN]")
     product = forms.CharField(label="Użyty produkt")
