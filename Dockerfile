@@ -11,4 +11,4 @@ ARG TelegramToken #"598551213:AAHVT4vMsBt_IUCrdvMyDsoTOSD5NoM0o1A"
 
 
 RUN pip install -r requirements.txt
-CMD ["python", "manage.py", "migrate"]
+CMD ["python", "manage.py", "makemigrations"]

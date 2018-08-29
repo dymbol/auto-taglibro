@@ -66,6 +66,6 @@ class ActionForm(forms.Form):
         label="Dokument (fv, paragon)")
     milage = forms.DecimalField(label="Przebieg")
     comment = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
-    date = forms.DateField(label="Data", type='date')
+    date = forms.DateField(label="Data", initial=datetime.now, widget=forms.DateInput(attrs={'type': 'date'}))
     cost = forms.DecimalField(label="Koszt [PLN]")
     product = forms.CharField(label="Użyty produkt")
