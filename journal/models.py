@@ -29,6 +29,7 @@ class Car(models.Model):
     engine_model = models.CharField(max_length=24, blank=True, null=True)
     VIN = models.CharField(max_length=30, blank=True, null=True)
     first_registration = models.DateField()
+    color = models.CharField(max_length=100, blank=True, null=True)    # color code (color name) ; html color value
     fuel_choices = (
         ("gasoline", "gasoline"),
         ("diesel", "diesel"),

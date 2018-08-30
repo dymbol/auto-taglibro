@@ -9,6 +9,7 @@
     <div class="col-lg-5">
       <h1>{{ Car.manufacturer }} {{ Car.model }}</h1>
       <p><span class="font-weight-bold">Rok produkcji: </span>{{ Car.prod_year }}</p>
+      <p><span class="font-weight-bold">Data pierwszej rejestracji: </span>{{ Car.first_registration }}</p>
       <p><span class="font-weight-bold">Paliwo: </span>{{ Car.fuel }}</p>
       <p><span class="font-weight-bold">Model silnika: </span>{{ Car.engine_model }}</p>
       <p><span class="font-weight-bold">Pojemność silnika [ccm]: </span>{{ Car.engine_capacity }}</p>
@@ -17,6 +18,7 @@
       <p><span class="font-weight-bold">Nr rejestracyjny: </span>{{ Car.reg_no }}</p>
       <p><span class="font-weight-bold">Numer VIN: </span>{{ Car.VIN }}</p>
       <p><span class="font-weight-bold">Przebieg [km]: </span>{{ Last_milage.milage }} (Dane z {{ Last_milage.date }})</p>
+      <span class="font-weight-bold">Kolor: </span> <span class="badge badge-secondary" style="background: {{ color_code }}">{{ color_name }}</span>
 
     </div>
     <div class="col-lg-7">

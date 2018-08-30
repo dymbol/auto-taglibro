@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'autotaglibro.wsgi.application'
 
 
 if os.environ.get('DEV_ENV') == 'True':
-    print("DEV")
+    print("DEVELOPMENT Environment!")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
