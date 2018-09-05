@@ -30,4 +30,4 @@ CMD ["python3", "/autotaglibro/manage.py", "migrate"]
 CMD ["python3", "/autotaglibro/manage.py", "runserver"]
 
 
-EXPOSE 80
+EXPOSE 8000

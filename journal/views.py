@@ -54,8 +54,12 @@ def car(request, car_id):
     context = {}
     car = Car.objects.filter(id=car_id)[0]  # .dates('creation_date', 'year').distinct()
     context["Car"] = car
-    context["color_name"] = car.color.split(";")[0]
-    context["color_code"] = car.color.split(";")[1]
+    if car.color is not None:
+        context["color_name"] = car.color.split(";")[0]
+        context["color_code"] = car.color.split(";")[1]
+    else:
+        context["color_name"] = "-"
+        context["color_code"] = "#FFFFF"
     try:
         context["Last_milage"] = Milage.objects.filter(car__id=car_id).order_by('-milage')[0]  # .dates('creation_date', 'year').distinct()
     except IndexError:
