@@ -1,9 +1,10 @@
 # auto-taglibro
 Car maintanance scheduler
 
-1. python3 manage.py migrate
-2. python3 manage.py createsuperuser
-
+Markup : `
+python3 manage.py migrate
+python3 manage.py createsuperuser
+``
 
 You need to pass environment variables for particular environment (like: $ export SECRET_KEY="ggu7t6rg737&*(%6*" ):
     PROD environment (Heroku)
@@ -16,3 +17,15 @@ You need to pass environment variables for particular environment (like: $ expor
         DATABASE_URL    #example: sqlite:////home/dymbol/GIT/Github/auto-taglibro/db.sqlite3;
         DEBUG           #True or False
         DEV_ENV=True
+
+You can simply build docker image:
+MArkup : ```
+docker build -t autotaglibro  \
+    --build-arg DEBUG=True \
+    --build-arg SECRET_KEY="Hjuioh78687^%586h98jh98" \
+    --build-arg DATABASE_URL="sqlite:///autotaglibro/db.sqlite3;" \
+    --build-arg DEV_ENV="True" \
+    --build-arg TelegramToken="598551213:AAHVT4vMsBt_IUCrdvMyDsoTOSD5NoM0o1A" .
+docker run  -d  -p 8000:8000 autotaglibro
+```
+and use your browser with address http://127.0.0.1:8000
