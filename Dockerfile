@@ -23,11 +23,12 @@ ENV DEV_ENV ${DEV_ENV}
 ARG TelegramToken
 ENV TelegramToken ${TelegramToken}
 
-RUN apt update && apt install -y python3 python3-pip postgresql-server-dev-all
+RUN apt-get update && apt-get  install -y python3 python3-pip postgresql-server-dev-all
 RUN pip3 install -r /autotaglibro/requirements.txt
-CMD ["python3", "/autotaglibro/manage.py", "makemigrations"]
-CMD ["python3", "/autotaglibro/manage.py", "migrate"]
-CMD ["python3", "/autotaglibro/manage.py", "runserver"]
+RUN ["python3", "/autotaglibro/manage.py", "makemigrations"]
+RUN ["python3", "/autotaglibro/manage.py", "migrate"]
+
+CMD ["python3", "/autotaglibro/manage.py", "runserver", "0.0.0.0:8000"]
 
 
 EXPOSE 8000
