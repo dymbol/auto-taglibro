@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 ADD . /autotaglibro
 WORKDIR . /autotaglibro
 
-#app parameters
+
 #"True"
 ARG DEBUG
 ENV DEBUG    ${DEBUG}
@@ -27,8 +27,9 @@ RUN apt-get update && apt-get  install -y python3 python3-pip postgresql-server-
 RUN pip3 install -r /autotaglibro/requirements.txt
 RUN ["python3", "/autotaglibro/manage.py", "makemigrations"]
 RUN ["python3", "/autotaglibro/manage.py", "migrate"]
+RUN ["python3", "manage.py", "createsuperuser", "--username", "admin", "--email", "test@test.com"]
 
-CMD ["python3", "/autotaglibro/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
 
 
 EXPOSE 8000
