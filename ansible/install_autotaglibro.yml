@@ -16,7 +16,6 @@
       user:
         name: "{{ run_user }}"
         shell: /bin/bash
-        groups: "{{ run_group }}"
 
     - name: Install required packages
       dnf:
