@@ -1,6 +1,6 @@
 ---
-- name: DGallery install playbook
-  hosts: DGallery
+- name: auto-taglibro install playbook
+  hosts: auto-taglibro
   remote_user: root
   become: yes
   become_method: sudo
