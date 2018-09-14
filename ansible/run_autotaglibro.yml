@@ -1,0 +1,27 @@
+---
+- name: auto-taglibro run playbook
+  hosts: auto-taglibro
+  remote_user: root
+  become: yes
+  become_method: sudo
+  vars:
+    log_dir: "/opt/autotaglibro_log"
+    docs_dir: "/opt/autotaglibro_docs"
+    app_dir: "/opt/autotaglibro"
+    run_user: "autotaglibro"
+    run_group: "autotaglibro"
+
+  tasks:
+    - name: Setting variables
+      environment:
+        DEBUG: "True"
+        SECRET_KEY: "Hjuioh78687^%586h98jh98"
+        DATABASE_URL: "sqlite:///autotaglibro/db.sqlite3;"
+        DEV_ENV: "True"
+        TelegramToken: "598551213:AAHVT4vMsBt_IUCrdvMyDsoTOSD5NoM0o1A"
+
+    - name: Applaying migrations
+      command: python3 /autotaglibro/manage.py  migrate
+
+    - name: Running uwsgi
+      command: uwsgi --ini /autotaglibro/uwsgi.ini
