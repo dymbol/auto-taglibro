@@ -6,3 +6,4 @@ python-decouple
 django_heroku
 psycopg2-binary
 python-telegram-bot
+uwsgi
