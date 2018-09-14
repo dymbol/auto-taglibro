@@ -52,4 +52,4 @@
         dest: "{{ app_dir }}"
 
     - name: install Python requierments
-      command: 'pip3 install -r "{{ app_dir }}"/auto-taglibro/requirements.txt'
+      command: 'pip3 install -r "{{ app_dir }}"/requirements.txt'
