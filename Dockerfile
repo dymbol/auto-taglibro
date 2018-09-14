@@ -28,7 +28,7 @@ RUN pip3 install -r /autotaglibro/requirements.txt
 RUN ["python3", "/autotaglibro/manage.py", "makemigrations"]
 RUN ["python3", "/autotaglibro/manage.py", "migrate"]
 
-CMD ["uwsgi", "--ini", "uwsgi.ini"]
+CMD ["uwsgi", "--ini", "/autotaglibro/uwsgi.ini"]
 
 
 EXPOSE 8000
