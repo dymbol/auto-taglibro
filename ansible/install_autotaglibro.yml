@@ -16,7 +16,7 @@
       user:
         name: {{ run_user }}
         shell: /bin/bash
-        groups: {{ run_group}}
+        groups: {{ run_group }}
 
     - name: Install required packages
       dnf:
@@ -29,16 +29,22 @@
       when: ansible_distribution == "Ubuntu"
 
     - name: Creates App directory
-      file: path="{{ app_dir }}" state=directory
-      owner: {{ run_user }}
+      file:
+        path: {{ app_dir }}
+        state: directory
+        owner: {{ run_user }}
 
     - name: Creates App log directory
-      file: path="{{ log_dir }}" state=directory
-      owner: {{ run_user }}
+      file:
+        path: {{ log_dir }}
+        state: directory
+        owner: {{ run_user }}
 
     - name: Creates App documents directory
-      file: path="{{ docs_dir }}" state=directory
-      owner: {{ run_user }}
+      file:
+        path: {{ docs_dir }}
+        state: directory
+        owner: {{ run_user }}
 
     - name: Get code
       git:
