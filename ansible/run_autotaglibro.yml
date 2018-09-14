@@ -22,4 +22,4 @@
       command: "python3 {{ app_dir }}/manage.py  migrate"
 
     - name: Running uwsgi
-      command: uwsgi --ini /autotaglibro/uwsgi.ini
+      command: "uwsgi --ini {{ app_dir }}/uwsgi.ini"
