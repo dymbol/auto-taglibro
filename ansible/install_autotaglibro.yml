@@ -1,0 +1,49 @@
+---
+- name: DGallery install playbook
+  hosts: DGallery
+  remote_user: root
+  become: yes
+  become_method: sudo
+  vars:
+    log_dir: "/opt/autotaglibro_log"
+    docs_dir: "/opt/autotaglibro_docs"
+    app_dir: "/opt/autotaglibro"
+    run_user: "autotaglibro"
+    run_group: "autotaglibro"
+
+  tasks:
+    - name: Add the user autotaglibro
+      user:
+        name: {{ run_user }}
+          shell: /bin/bash
+          groups: {{ run_group}}
+
+    - name: Install required packages
+      dnf:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - python3
+        - python3-pip
+        - postgresql-server-dev-all
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Creates App directory
+      file: path="{{ app_dir }}" state=directory
+      owner: {{ run_user }}
+
+    - name: Creates App log directory
+      file: path="{{ log_dir }}" state=directory
+      owner: {{ run_user }}
+
+    - name: Creates App documents directory
+      file: path="{{ docs_dir }}" state=directory
+      owner: {{ run_user }}
+
+    - name: Get code
+      git:
+        repo: https://github.com/dymbol/auto-taglibro
+        dest: {{ app_dir }}
+
+    - name: install Python requierments
+      command: 'pip install -r "{{ app_dir }}"/auto-taglibro/requirements.txt'
