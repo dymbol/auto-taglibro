@@ -16,7 +16,8 @@
     DATABASE_URL: "sqlite:///autotaglibro/db.sqlite3;"
     DEV_ENV: "True"
     TelegramToken: "598551213:AAHVT4vMsBt_IUCrdvMyDsoTOSD5NoM0o1A"
-        
+
+  tasks:
     - name: Applaying migrations
       command: python3 /autotaglibro/manage.py  migrate
 
