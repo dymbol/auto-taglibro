@@ -19,7 +19,7 @@
 
   tasks:
     - name: Applaying migrations
-      command: python3 /autotaglibro/manage.py  migrate
+      command: "python3 {{ app_dir }}/manage.py  migrate"
 
     - name: Running uwsgi
       command: uwsgi --ini /autotaglibro/uwsgi.ini
