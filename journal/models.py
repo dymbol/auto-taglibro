@@ -112,7 +112,9 @@ class File(models.Model):
 
     def __str__(self):
         if self.name is not None:
-            return self.car.getName()+"->"+self.name
+            return "{}->{}".format(self.car.getName(), self.name)
+        else:
+            return "File {}".format(self.id)
 
 
 class Action(models.Model):
