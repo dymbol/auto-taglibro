@@ -12,6 +12,9 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.conf import settings
 import os
 import random
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseNotFound
+from sendfile import sendfile
 from decimal import *
 
 
@@ -159,6 +162,18 @@ def add_file(request, car_id):
 
 
 @login_required
+def get_file(request, file_id):
+    print("dupa")
+    file_obj = get_object_or_404(File, pk=file_id)
+    abs_filename = settings.DOCUMENTS_DIR+"/"+file_obj.name
+    if os.path.isfile(abs_filename):
+        return sendfile(request, abs_filename, attachment=False)
+    else:
+
+        return HttpResponseNotFound('<h1>File not found on server</h1>')
+
+
+@login_required
 def tmpl_action(request, tmplaction_id):
     context = {}
     context["TmplAction"] = ActionTemplate.objects.filter(id=tmplaction_id)[0]
@@ -293,3 +308,5 @@ def send_notifications(request):
         msg = "POST method required"
 
     return JsonResponse({'status': status, 'msg': msg})
+
+

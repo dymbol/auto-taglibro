@@ -18,7 +18,6 @@ urlpatterns = [
     path('file/add/<int:car_id>', views.add_file, name="add_file"),
     path('tmpl_action/<int:tmplaction_id>', views.tmpl_action, name="tmpl_action"),
     path('tmpl_action_add/<int:car_id>', views.add_tmpl_action, name="add_tmpl_action"),
-    path('notify', views.send_notifications, name="send_notifications")
-
-
+    path('notify', views.send_notifications, name="send_notifications"),
+    path('get_file/<int:file_id>', views.get_file, name='get_file')
 ]
