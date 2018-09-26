@@ -50,6 +50,7 @@
       git:
         repo: https://github.com/dymbol/auto-taglibro
         dest: "{{ app_dir }}"
+        force: yes
 
     - name: Set code permissions
       file:
