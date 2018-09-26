@@ -51,5 +51,12 @@
         repo: https://github.com/dymbol/auto-taglibro
         dest: "{{ app_dir }}"
 
+    - name: Set code permissions
+      file:
+        dest: /foo/bar/somedir
+        owner: "{{ run_user }}"
+        group: "{{ run_group }}"
+        recurse: yes
+
     - name: install Python requierments
       command: 'pip3 install -r "{{ app_dir }}"/requirements.txt'
