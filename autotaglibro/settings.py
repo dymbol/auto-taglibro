@@ -141,7 +141,5 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
 DOCUMENTS_DIR = os.path.join(BASE_DIR, 'journal', 'static', 'car_files')
-print(DOCUMENTS_DIR)
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 TELEGRAM_TOKEN = os.environ.get('TelegramToken')
-
