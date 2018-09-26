@@ -37,6 +37,9 @@
       command: "python3 {{ app_dir }}/manage.py  migrate"
       become_user: "{{run_user}}"
 
+    - name: Kill running uwsgi processes
+      shell: "pkill -9 uwsgi"
+
     - name: Running uwsgi
       command: "uwsgi --ini {{ app_dir }}/uwsgi.ini"
       become_user: "{{run_user}}"
