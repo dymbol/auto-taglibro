@@ -26,6 +26,7 @@
         - python3
         - python3-pip
         - postgresql-server-dev-all
+        - libmysqlclient-dev
       when: ansible_distribution == "Ubuntu"
 
     - name: Creates App directory
