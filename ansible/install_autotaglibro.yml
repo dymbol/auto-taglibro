@@ -54,7 +54,7 @@
 
     - name: Set code permissions
       file:
-        dest: /foo/bar/somedir
+        dest: "{{ app_dir }}"
         owner: "{{ run_user }}"
         group: "{{ run_group }}"
         recurse: yes
