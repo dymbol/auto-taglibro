@@ -165,12 +165,16 @@ def add_file(request, car_id):
 def get_file(request, file_id):
     print("dupa")
     file_obj = get_object_or_404(File, pk=file_id)
-    abs_filename = settings.DOCUMENTS_DIR+"/"+file_obj.name
-    if os.path.isfile(abs_filename):
-        return sendfile(request, abs_filename, attachment=False)
-    else:
+    if file_obj.name is not None:
+        abs_filename = settings.DOCUMENTS_DIR+"/"+file_obj.name
+        if os.path.isfile(abs_filename):
+            return sendfile(request, abs_filename, attachment=False)
+        else:
 
-        return HttpResponseNotFound('<h1>File not found on server</h1>')
+            return HttpResponseNotFound('<h1>File not found on server</h1>')
+    else:
+        return HttpResponseNotFound('<h1>Problem with file object</h1>')
+        raise
 
 
 @login_required
