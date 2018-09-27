@@ -13,9 +13,10 @@
     #DEV_ENV: "True"
     #TelegramToken: "598551213:AAHVT4vMsBt_IUCrdvMyDsoTOSD5NoM0o1A"
     #ALLOWED_HOSTS: "wp.pl"
+    #DOCUMENTS_DIR: "/opt/autotaglibro_docs"
   vars:
     log_dir: "/opt/autotaglibro_log"
-    docs_dir: "/opt/autotaglibro_docs"
+    docs_dir: "{{DOCUMENTS_DIR}}"
     app_dir: "/opt/autotaglibro"
     run_user: "autotaglibro"
     run_group: "autotaglibro"
@@ -26,6 +27,7 @@
     DEV_ENV: "{{DEV_ENV}}"
     TelegramToken: "{{TelegramToken}}"
     ALLOWED_HOSTS: "{{ALLOWED_HOSTS}}"
+    DOCUMENTS_DIR: "{{DOCUMENTS_DIR}}"
 
   tasks:
     - name: Prepare environment variables
