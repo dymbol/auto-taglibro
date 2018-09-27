@@ -140,6 +140,10 @@ LOGIN_URL = '/login'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
-DOCUMENTS_DIR = os.path.join(BASE_DIR, 'journal', 'static', 'car_files')
+if os.environ.get('DOCUMENTS_DIR'):
+    DOCUMENTS_DIR = os.environ.get('DOCUMENTS_DIR')
+else:
+    DOCUMENTS_DIR = os.path.join(BASE_DIR, 'journal', 'static', 'car_files')
+
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 TELEGRAM_TOKEN = os.environ.get('TelegramToken')
