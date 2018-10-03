@@ -281,18 +281,18 @@ def send_notifications(request):
                         if request.POST['check_important'] == "1":
                             try:
                                 status = "0"
-                                msg = extras.SendNotifications(ImportantOnly=True)
+                                msg = extras.send_notifications(important_only=True)
                             except:
                                 status = "-1"
-                                msg = "Unknown error in extras.SendNotifications()"
+                                msg = "Unknown error in extras.send_notifications()"
                                 raise
                         else:
                             try:
                                 status = "0"
-                                msg = extras.SendNotifications(ImportantOnly=False)
+                                msg = extras.send_notifications(important_only=False)
                             except:
                                 status = "-1"
-                                msg = "Unknown error in extras.SendNotifications()"
+                                msg = "Unknown error in extras.send_notifications()"
                                 raise
                 else:
                     # Return a 'disabled account' error message
