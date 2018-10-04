@@ -13,10 +13,13 @@ class Owner(User):
     FBCon = models.CharField(max_length=24, blank=True, null=True)
 
     def __str__(self):
-        return "{} {}".format(self.last_name, self.first_name)
+        if self.first_name is not None and self.last_name is not None:
+            return "{} {}".format(self.last_name, self.first_name)
+        else:
+            return "{}".format(self.username)
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['last_name', 'first_name', 'username']
 
 
 class Car(models.Model):
