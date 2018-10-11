@@ -63,9 +63,10 @@ class ActionForm(forms.Form):
         label="Akcja predefiniowana")
     file = forms.ModelChoiceField(
         queryset=File.objects.all(),
-        label="Dokument (fv, paragon)")
+        label="Dokument (fv, paragon)",
+        required=False)
     milage = forms.DecimalField(label="Przebieg")
     comment = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
     date = forms.DateField(label="Data", initial=datetime.now, widget=forms.DateInput(attrs={'type': 'date'}))
     cost = forms.DecimalField(label="Koszt [PLN]")
-    product = forms.CharField(label="Użyty produkt")
+    product = forms.CharField(label="Użyty produkt", required=False)

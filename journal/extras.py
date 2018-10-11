@@ -126,9 +126,11 @@ def send_notifications(important_only):
                 actmpl = ActionTemplate.objects.filter(car=car, important=True)
             else:
                 actmpl = ActionTemplate.objects.filter(car=car)
+
             for action in actmpl:
                 check = check_when_do_action(action.id)
                 if check["warning"] or check["disaster"]:
+                    print(check)
                     action_counter += 1
                     msg += "\t\t\t\t{} => {}\n".format(action.getName(), check["msg"])
             if action_counter > 0:
