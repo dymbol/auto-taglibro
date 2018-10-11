@@ -63,7 +63,7 @@ class ActionForm(forms.Form):
         label="Akcja predefiniowana")
     file = forms.ModelChoiceField(
         queryset=File.objects.all(),
-        label="Dokument (fv, paragon)",
+        label="Dokument",
         required=False)
     milage = forms.DecimalField(label="Przebieg")
     comment = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
