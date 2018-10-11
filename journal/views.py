@@ -245,7 +245,7 @@ def add_action(request, car_id):
     else:
         form = ActionForm()
         form.fields['ActionTemplate'] = forms.ModelChoiceField(queryset=ActionTemplate.objects.filter(car=car), label="Akcja predefiniowana")
-        form.fields['file'] = forms.ModelChoiceField(queryset=File.objects.filter(car=car), label="Dokument (fv, paragon)")
+        form.fields['file'] = forms.ModelChoiceField(queryset=File.objects.filter(car=car), label="Dokument (fv, paragon)",required=False)
         form.fields['milage'] = forms.DecimalField(
             min_value=last_milage+1,
             initial=last_milage+1,
