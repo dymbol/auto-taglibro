@@ -29,7 +29,7 @@ def check_when_do_action(action_template_id):
         last_action = Action.objects.filter(
             ActionTemplate=this_action_template
         ).order_by('-date')[0]
-    except ObjectDoesNotExist:
+    except (ObjectDoesNotExist, IndexError):
         last_action = Action()
         last_action.ActionTemplate = this_action_template
         last_action.date = this_action_template.car.first_registration
