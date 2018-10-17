@@ -110,7 +110,10 @@ def action_list(request, car_id):
 def action_list_by_tmpl(request, tmplaction_id):
     context = {}
     context["action_list"] = Action.objects.filter(ActionTemplate__id=tmplaction_id).order_by('-date')
-    return render(request, 'action_list.html', context)
+    if len(context["action_list"]) != 0:
+        return render(request, 'action_list.html', context)
+    else:
+        return HttpResponseNotFound('<h1>Brak wystąpień</h1>')
 
 
 @login_required
