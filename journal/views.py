@@ -262,8 +262,7 @@ def add_action(request, car_id):
 @csrf_exempt
 def send_notifications(request):
     '''
-    how to call: curl -d "username=xxx&password=xxx" -X POST http://127.0.0.1:8000/notify
-    or
+    how to call:
     curl -d "username=xxx&password=xxx&check_important=1" -X POST http://127.0.0.1:8000/notify
     curl -d "username=xxx&password=xxx&check_important=0" -X POST http://127.0.0.1:8000/notify
     '''
@@ -297,6 +296,10 @@ def send_notifications(request):
                                 status = "-1"
                                 msg = "Unknown error in extras.send_notifications()"
                                 raise
+                    else:
+                        status = "-1"
+                        msg = "Please call me with check_important parameter (0 or 1 value)"
+
                 else:
                     # Return a 'disabled account' error message
                     status = "1"
