@@ -79,7 +79,7 @@ def check_when_do_action(action_template_id):
             disaster = True
             msg = "Przekroczyłeś limit km dla akcji o {}\n".format(abs(milage_left))
 
-    if date_left is not None:
+    if date_left is not None and warning is False and disaster is False:
         if 0 < (date_left - current_date).days < 7:
             warning = True
             msg = msg + "Pozostało mniej niż 7 dni do wykonania akcji!\n"
@@ -90,7 +90,7 @@ def check_when_do_action(action_template_id):
                     abs((date_left - current_date).days)
                 )
 
-    if days_left is not None:
+    if days_left is not None and warning is False and disaster is False:
         if 0 < days_left.days < 7:
             warning = True
             msg = msg + "Pozostało mniej niż 7 dni do wykonania akcji!\n"
