@@ -17,7 +17,11 @@ from django.http import HttpResponseNotFound
 from sendfile import sendfile
 from decimal import *
 
-
+# TODO: add other option to change technical test date
+# TODO: add other option to change insurance data
+# TODO: plan: show how many day and month left to action
+# TODO: tmpl_action_add/1 error IntegrityError at /tmpl_action_add/1
+# (1048, "Column 'important' cannot be null")
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
