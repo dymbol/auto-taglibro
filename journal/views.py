@@ -242,8 +242,8 @@ def add_action(request, car_id):
                 cost=form['cost'].value(),
                 product=form['product'].value(),
             )
-            if form['file'] :
-                new_action.file=File.objects.filter(id=form['file'].value())[0]    
+            if id=form['file'].value() :
+                new_action.file=File.objects.filter(id=form['file'].value())[0]
 
             new_action.save()
             return redirect('car', car_id)
