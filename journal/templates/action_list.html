@@ -43,7 +43,11 @@
                   {{ element.comment }}
               </td>
               <td>{{ element.product|default_if_none:"" }}</td>
-              <td><a href="{% url 'get_file' element.file.id %}">{{ element.file.name }}</a></td>
+              {% if element.file %}
+                <td><a href="{% url 'get_file' element.file.id %}">{{ element.file.name }}</a></td>
+              {% else %}
+                <td>-</td>
+              {% endif %}
               <td>{{ element.cost }}</td>
               <td>{{ element.milage.milage }}</td>
               <td>{{ element.date|date:"d M Y" }}</td>
