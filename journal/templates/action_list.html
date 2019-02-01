@@ -43,7 +43,7 @@
                   {{ element.comment }}
               </td>
               <td>{{ element.product|default_if_none:"" }}</td>
-              <td><a href="{% url 'get_file' element.id %}">{{ element.name }}</a></td>
+              <td><a href="{% url 'get_file' element.file.id %}">{{ element.file.name }}</a></td>
               <td>{{ element.cost }}</td>
               <td>{{ element.milage.milage }}</td>
               <td>{{ element.date|date:"d M Y" }}</td>
