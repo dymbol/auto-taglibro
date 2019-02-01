@@ -242,7 +242,7 @@ def add_action(request, car_id):
                 cost=form['cost'].value(),
                 product=form['product'].value(),
             )
-            if id=form['file'].value() :
+            if form['file'].value() :
                 new_action.file=File.objects.filter(id=form['file'].value())[0]
 
             new_action.save()
