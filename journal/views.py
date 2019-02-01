@@ -170,7 +170,6 @@ def add_file(request, car_id):
 
 @login_required
 def get_file(request, file_id):
-    print("dupa")
     file_obj = get_object_or_404(File, pk=file_id)
     if file_obj.name is not None:
         abs_filename = settings.DOCUMENTS_DIR+"/"+file_obj.name
@@ -322,5 +321,3 @@ def send_notifications(request):
         msg = "POST method required"
 
     return JsonResponse({'status': status, 'msg': msg})
-
-
