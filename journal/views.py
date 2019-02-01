@@ -233,6 +233,7 @@ def add_action(request, car_id):
             )
             new_milage.save()
 
+
             new_action = Action(
                 ActionTemplate=ActionTemplate.objects.filter(id=form['ActionTemplate'].value())[0],
                 milage=new_milage,
@@ -240,8 +241,10 @@ def add_action(request, car_id):
                 comment=form['comment'].value(),
                 cost=form['cost'].value(),
                 product=form['product'].value(),
-                file=File.objects.filter(id=form['file'].value())[0],
             )
+            if form['file'] :
+                new_action.file=File.objects.filter(id=form['file'].value())[0]    
+
             new_action.save()
             return redirect('car', car_id)
         else:
