@@ -1,5 +1,4 @@
 pipeline {
-  //docker configuration in https://jenkins.booxdev.com/configure -> Pipeline Model Definition -> Docker Label etc
   agent {
     dockerfile {
       filename 'jobs/Test/Dockerfile'
