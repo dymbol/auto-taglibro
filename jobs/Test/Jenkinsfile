@@ -1,0 +1,20 @@
+pipeline {
+  //docker configuration in https://jenkins.booxdev.com/configure -> Pipeline Model Definition -> Docker Label etc
+  agent {
+    dockerfile {
+      filename 'jobs/Test/Dockerfile'
+    }
+  }
+  stages {
+    stage('Checkout'){
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'ls /autotaglibro'
+      }
+    }
+  }
+}
