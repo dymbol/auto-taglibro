@@ -1,10 +1,8 @@
 // syntax: https://jenkins.io/doc/book/pipeline/syntax/#agent
 pipeline {
   agent {
-    label 'dockerslave'
     dockerfile {
       filename 'jobs/Test/Dockerfile'
-      label 'dockerslave'
     }
   }
   stages {
