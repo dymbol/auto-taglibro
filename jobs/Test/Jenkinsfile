@@ -11,9 +11,32 @@ pipeline {
         checkout scm
       }
     }
-    stage('Build') {
+    stage('Static code test') {
       steps {
-        sh 'ls /autotaglibro'
+        sh '. export_dev_env_values.sh && python3 manage.py test'
+      }
+    }
+    stage('pylint tests') {
+      steps {
+        sh 'pylint --load-plugins pylint_django /autotaglibro/journal/'
+      }
+    }
+    stage('pucodestyle tests') {
+      steps {
+        sh 'pucodestyle /autotaglibro/journal/views.py'
+        sh 'pucodestyle /autotaglibro/journal/tests.py'
+        sh 'pucodestyle /autotaglibro/journal/forms.py'
+        sh 'pucodestyle /autotaglibro/journal/extras.py'
+        sh 'pucodestyle /autotaglibro/journal/templatetags/tags.py'
+      }
+    }
+    stage('pydocstyle tests') {
+      steps {
+        sh 'pydocstyle /autotaglibro/journal/views.py'
+        sh 'pydocstyle /autotaglibro/journal/tests.py'
+        sh 'pydocstyle /autotaglibro/journal/forms.py'
+        sh 'pydocstyle /autotaglibro/journal/extras.py'
+        sh 'pydocstyle /autotaglibro/journal/templatetags/tags.py'
       }
     }
   }
