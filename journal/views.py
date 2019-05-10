@@ -15,6 +15,7 @@ import random
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseNotFound
 from sendfile import sendfile
+from django.db.models import Sum
 from decimal import *
 
 # TODO: add other option to change technical test date
@@ -102,6 +103,17 @@ def service_plan(request, car_id):
     context["service_plan"] = ActionTemplate.objects.filter(car_id=car_id, periodic=True).order_by('action_milage_period')
     context["car_id"] = car_id
     return render(request, 'service_plan.html', context)
+
+
+@login_required
+def show_costs(request, car_id):
+    context = {}
+    action_list = Action.objects.filter(ActionTemplate__car_id=car_id).values('date__year').annotate(dcount=Sum('cost'))
+    context["costs"] = action_list
+    car = Car.objects.filter(id=car_id)[0]
+    context["car"] = car
+    return render(request, 'costs.html', context)
+
 
 @login_required
 def action_list(request, car_id):

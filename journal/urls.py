@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout', views.logoutuser, name="logoutuser"),
     path('car_list', views.car_list, name="car_list"),
     path('car/<int:car_id>', views.car, name="car"),
+    path('car/costs/<int:car_id>', views.show_costs, name="show_costs"),
     path('milage/<int:car_id>', views.milage_list, name="milage"),
     path('update_milage/<int:car_id>', views.update_milage, name="update_milage"),
     path('plan/<int:car_id>', views.service_plan, name="service_plan"),
