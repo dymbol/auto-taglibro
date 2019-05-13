@@ -19,7 +19,7 @@
                   labels: [{% for element in costs %} "{{element.date__year}}", {% endfor %}],
                   datasets: [{
                     label: 'PLN',
-                    data: [{% for element in costs %} "{{element.dcount}}", {% endfor %}],
+                    data: [{% for element in costs %} "{{element.dcount}}".replace(",", "."), {% endfor %}],
                     backgroundColor: [
                       'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',

@@ -110,6 +110,7 @@ def show_costs(request, car_id):
     context = {}
     action_list = Action.objects.filter(ActionTemplate__car_id=car_id).values('date__year').annotate(dcount=Sum('cost'))
     context["costs"] = action_list
+    print(action_list)
     car = Car.objects.filter(id=car_id)[0]
     context["car"] = car
     return render(request, 'costs.html', context)
