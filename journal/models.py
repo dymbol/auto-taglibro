@@ -122,7 +122,7 @@ class File(models.Model):
 
 class Action(models.Model):
     ActionTemplate = models.ForeignKey(ActionTemplate, on_delete=models.CASCADE)
-    milage = models.ForeignKey(Milage, on_delete=models.CASCADE, blank=True)
+    milage = models.ForeignKey(Milage, on_delete=models.CASCADE, blank=True, null=True)
     show_on_list = models.BooleanField(default=True)  # True if should be showed on action_list
     date = models.DateField()
     comment = models.CharField(max_length=224, blank=True, null=True)

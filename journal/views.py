@@ -239,27 +239,32 @@ def add_action(request, car_id):
     if request.method == "POST":
         form = ActionForm(request.POST)
         if form.is_valid():
-            print(form['ActionTemplate'].value())
-            new_milage = Milage(
-                car=car,
-                milage=form['milage'].value(),
-                date=form['date'].value()
-            )
-            new_milage.save()
-
-
             new_action = Action(
                 ActionTemplate=ActionTemplate.objects.filter(id=form['ActionTemplate'].value())[0],
-                milage=new_milage,
                 date=form['date'].value(),
                 comment=form['comment'].value(),
-                cost=form['cost'].value(),
-                product=form['product'].value(),
+                product=form['product'].value()
             )
+
+            if form['milage'].value() :
+                print("Jestem tu!")
+                new_milage = Milage(
+                    car=car,
+                    milage=form['milage'].value(),
+                    date=form['date'].value()
+                )
+                new_milage.save()
+                new_action.milage = new_milage
+
+
             if form['file'].value() :
                 new_action.file=File.objects.filter(id=form['file'].value())[0]
 
+            if form['cost'].value() :
+                cost = form['cost'].value()
+
             new_action.save()
+
             return redirect('car', car_id)
         else:
             print(form.errors)
@@ -272,7 +277,8 @@ def add_action(request, car_id):
         form.fields['milage'] = forms.DecimalField(
             min_value=last_milage+1,
             initial=last_milage+1,
-            label="Przebieg"
+            label="Przebieg",
+            required=False
         )
         context['form'] = form
         context['car_id'] = car_id

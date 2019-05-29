@@ -65,7 +65,7 @@ class ActionForm(forms.Form):
         queryset=File.objects.all(),
         label="Dokument",
         required=False)
-    milage = forms.DecimalField(label="Przebieg", required=False)
+    milage = forms.DecimalField(required=False, label="Przebieg")
     show_on_list = forms.BooleanField(initial=True, label="Pokaż na liście napraw", required=False)
     comment = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
     date = forms.DateField(label="Data", initial=datetime.now, widget=forms.DateInput(attrs={'type': 'date'}))
