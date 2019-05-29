@@ -109,9 +109,11 @@ def service_plan(request, car_id):
 def show_costs(request, car_id):
     context = {}
     action_list = Action.objects.filter(ActionTemplate__car_id=car_id).values('date__year').annotate(dcount=Sum('cost'))
+    for year_obj in action_list:
+        if year_obj["dcount"] is not None:
+            print(year_obj)
     context["costs"] = action_list
-    car = Car.objects.filter(id=car_id)[0]
-    context["car"] = car
+    context["car"] = Car.objects.filter(id=car_id)[0]
     return render(request, 'costs.html', context)
 
 

@@ -122,7 +122,8 @@ class File(models.Model):
 
 class Action(models.Model):
     ActionTemplate = models.ForeignKey(ActionTemplate, on_delete=models.CASCADE)
-    milage = models.ForeignKey(Milage, on_delete=models.CASCADE)
+    milage = models.ForeignKey(Milage, on_delete=models.CASCADE, blank=True)
+    show_on_list = models.BooleanField(default=True)  # True if should be showed on action_list
     date = models.DateField()
     comment = models.CharField(max_length=224, blank=True, null=True)
     cost = models.DecimalField(decimal_places=2, max_digits=9, blank=True, null=True)# cost in PLN
