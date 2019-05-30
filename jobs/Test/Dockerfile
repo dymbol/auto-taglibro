@@ -26,10 +26,5 @@ RUN apt-get update && apt-get  install -y python3 python3-pip postgresql-server-
 RUN apt-get clean && apt-get autoclean && apt-get autoremove
 RUN pip3 install -r /autotaglibro/requirements.txt
 RUN pip3 install pylama
-RUN ["python3", "/autotaglibro/manage.py", "makemigrations"]
-RUN ["python3", "/autotaglibro/manage.py", "migrate"]
-
-CMD ["uwsgi", "--ini", "/autotaglibro/uwsgi.ini"]
-
 
 EXPOSE 8000

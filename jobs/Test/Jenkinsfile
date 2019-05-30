@@ -11,6 +11,12 @@ pipeline {
         checkout scm
       }
     }
+    stage('Make migrations') {
+      steps {
+        sh '. export_dev_env_values.sh && python3 manage.py makemigrations'
+        sh '. export_dev_env_values.sh && python3 manage.py migrate'
+      }
+    }
     stage('Static code test') {
       steps {
         sh '. export_dev_env_values.sh && python3 manage.py test'
