@@ -27,36 +27,49 @@
 
     </div>
     <div class="col-lg-6" id="chartContainer">
+        <canvas id="myChart" style="max-width: 500px;"></canvas>
+
+      <script>
+              var ctx = document.getElementById("myChart").getContext('2d');
+              var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: [{% for element in Milage reversed %} "{{element.date|date:"d.m.Y"}}", {% endfor %}],
+                  datasets: [{
+                    label: 'Przebieg [km]',
+                    data:  [
+                              {% for element in Milage reversed %}
+                                {
+                                  x: new Date({{ element.date|date:"Y" }}, {{ element.date|date:"m" }}, {{ element.date|date:"d" }}),
+                                  y: {{ element.milage }}
+                                },
+                              {% endfor %}
+                           ],
+                           fill: false,
+
+                    backgroundColor: [
+                      'rgba(66, 134, 244)'
+                    ],
+                    borderColor: [
+                      'rgba(66, 134, 244)'
+                    ],
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        beginAtZero: false
+                      }
+                    }]
+                  }
+                }
+              });
+
+            </script>
     </div>
   </div>
-  <script type="text/javascript">
-        window.onload = function () {
-            var chart = new CanvasJS.Chart("chartContainer",
-            {
-
-            axisX:{
-                title: "Czas",
-                gridThickness: 2
-            },
-            axisY: {
-                title: "Przebieg [km]"
-            },
-            data: [
-            {
-                type: "area",
-                dataPoints: [//array
-                {% for element in Milage %}
-                  { x: new Date({{ element.date|date:"Y" }}, {{ element.date|date:"m" }}, {{ element.date|date:"d" }}), y: {{ element.milage }}},
-                {% endfor %}
-                ]
-            }
-            ]
-        });
-
-            chart.render();
-        }
-        </script>
-        <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <!-- /.row -->
 
 
