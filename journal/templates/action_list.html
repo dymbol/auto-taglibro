@@ -23,35 +23,37 @@
         </thead>
         <tbody>
             {% for element in action_list %}
-            <tr>
-              <th scope="row"> {{ forloop.counter }}</th>
-              <td>{% if element.ActionTemplate.action_popular.title %}
-                    {{ element.ActionTemplate.action_popular.title }}
-                  {% endif %}
-                  {% if element.ActionTemplate.title %}
-                    {{ element.ActionTemplate.title }}
-                  {% endif %}
-              </td>
-              <td>
-                  {% if element.ActionTemplate.action_popular.desc %}
-                    {{ element.ActionTemplate.action_popular.desc }}
-                  {% endif %}
-                  {% if element.ActionTemplate.desc %}
-                    {{ element.ActionTemplate.desc }}
-                  {% endif %}
-                  <br>
-                  {{ element.comment }}
-              </td>
-              <td>{{ element.product|default_if_none:"" }}</td>
-              {% if element.file %}
-                <td><a href="{% url 'get_file' element.file.id %}">{{ element.file.name }}</a></td>
-              {% else %}
-                <td>-</td>
-              {% endif %}
-              <td>{{ element.cost }}</td>
-              <td>{{ element.milage.milage }}</td>
-              <td>{{ element.date|date:"d M Y" }}</td>
-            </tr>
+                {% if element.show_on_list is True %}
+                    <tr>
+                      <th scope="row"> {{ forloop.counter }}</th>
+                      <td>{% if element.ActionTemplate.action_popular.title %}
+                            {{ element.ActionTemplate.action_popular.title }}
+                          {% endif %}
+                          {% if element.ActionTemplate.title %}
+                            {{ element.ActionTemplate.title }}
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if element.ActionTemplate.action_popular.desc %}
+                            {{ element.ActionTemplate.action_popular.desc }}
+                          {% endif %}
+                          {% if element.ActionTemplate.desc %}
+                            {{ element.ActionTemplate.desc }}
+                          {% endif %}
+                          <br>
+                          {{ element.comment }}
+                      </td>
+                      <td>{{ element.product|default_if_none:"" }}</td>
+                      {% if element.file %}
+                        <td><a href="{% url 'get_file' element.file.id %}">{{ element.file.name }}</a></td>
+                      {% else %}
+                        <td>-</td>
+                      {% endif %}
+                      <td>{{ element.cost }}</td>
+                      <td>{{ element.milage.milage }}</td>
+                      <td>{{ element.date|date:"d M Y" }}</td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </tbody>
       </table>

@@ -18,10 +18,6 @@ from sendfile import sendfile
 from django.db.models import Sum
 from decimal import *
 
-# TODO: add other option to change technical test date
-# TODO: add other option to change insurance data
-# TODO: plan: show how many day and month left to action
-# TODO: tmpl_action_add/1 error IntegrityError at /tmpl_action_add/1
 # (1048, "Column 'important' cannot be null")
 def login_user(request):
     if request.method == "POST":
@@ -108,7 +104,7 @@ def service_plan(request, car_id):
 @login_required
 def show_costs(request, car_id):
     context = {}
-    action_list = Action.objects.filter(ActionTemplate__car_id=car_id).values('date__year').annotate(dcount=Sum('cost'))
+    action_list = Action.objects.filter(ActionTemplate__car_id=car_id).values('date__year').annotate(dcount=Sum('cost')).order_by('date__year')
     for year_obj in action_list:
         if year_obj["dcount"] is not None:
             print(year_obj)
@@ -243,11 +239,11 @@ def add_action(request, car_id):
                 ActionTemplate=ActionTemplate.objects.filter(id=form['ActionTemplate'].value())[0],
                 date=form['date'].value(),
                 comment=form['comment'].value(),
-                product=form['product'].value()
+                product=form['product'].value(),
+                show_on_list=form['show_on_list'].value()
             )
 
             if form['milage'].value() :
-                print("Jestem tu!")
                 new_milage = Milage(
                     car=car,
                     milage=form['milage'].value(),
@@ -256,15 +252,12 @@ def add_action(request, car_id):
                 new_milage.save()
                 new_action.milage = new_milage
 
-
             if form['file'].value() :
                 new_action.file=File.objects.filter(id=form['file'].value())[0]
-
             if form['cost'].value() :
-                cost = form['cost'].value()
+                new_action.cost = form['cost'].value()
 
             new_action.save()
-
             return redirect('car', car_id)
         else:
             print(form.errors)
