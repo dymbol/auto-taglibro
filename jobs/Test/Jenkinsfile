@@ -13,13 +13,13 @@ pipeline {
     }
     stage('Make migrations') {
       steps {
-        sh '. /autotaglibro/export_dev_env_values.sh && python3 manage.py makemigrations'
-        sh '. /autotaglibro/export_dev_env_values.sh && python3 manage.py migrate'
+        sh 'python3 manage.py makemigrations'
+        sh 'python3 manage.py migrate'
       }
     }
     stage('Static code test') {
       steps {
-        sh '. /autotaglibro/export_dev_env_values.sh && python3 manage.py test'
+        sh 'python3 manage.py test'
       }
     }
     stage('pylint tests') {
