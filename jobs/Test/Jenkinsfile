@@ -3,6 +3,7 @@ pipeline {
   agent {
     dockerfile {
       filename 'jobs/Test/Dockerfile'
+      args '--entrypoint=\'\''
     }
   }
   stages {
