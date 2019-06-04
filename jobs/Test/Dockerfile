@@ -10,7 +10,7 @@ ADD . /autotaglibro
 WORKDIR . /autotaglibro
 
 ENV DEBUG True
-ENV DEV_ENV True
+ENV DEV_ENV False   # if True, than uses sqlite db
 ENV SECRET_KEY guyhgyut6g%%%$ff453u
 ENV DATABASE_URL mysql://autotaglibro:dev_password/autotaglibro
 ENV TelegramToken 598551213:AAHVT4vMsBt_IUCrdvMyDsoTOSD5NoM0o1A
