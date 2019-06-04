@@ -1,6 +1,6 @@
 #Docker file used for testing purposes (Jenkins etc)
 
-FROM mariadb AS mariadb_autotaglibro
+FROM mariadb
 ENV MYSQL_ROOT_PASSWORD dev_password
 ENV MYSQL_DATABASE autotaglibro
 
