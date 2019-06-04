@@ -11,6 +11,11 @@ pipeline {
         checkout scm
       }
     }
+    stage('Install pip requierments') {
+      steps {
+        sh 'pip3 install -r /autotaglibro/requirements.txt'
+      }
+    }
     stage('Make migrations') {
       steps {
         sh 'python3 manage.py migrate'
@@ -28,11 +33,11 @@ pipeline {
     }
     stage('pucodestyle tests') {
       steps {
-        sh 'pucodestyle /autotaglibro/journal/views.py'
-        sh 'pucodestyle /autotaglibro/journal/tests.py'
-        sh 'pucodestyle /autotaglibro/journal/forms.py'
-        sh 'pucodestyle /autotaglibro/journal/extras.py'
-        sh 'pucodestyle /autotaglibro/journal/templatetags/tags.py'
+        sh 'pycodestyle /autotaglibro/journal/views.py'
+        sh 'pycodestyle /autotaglibro/journal/tests.py'
+        sh 'pycodestyle /autotaglibro/journal/forms.py'
+        sh 'pycodestyle /autotaglibro/journal/extras.py'
+        sh 'pycodestyle /autotaglibro/journal/templatetags/tags.py'
       }
     }
     stage('pydocstyle tests') {
