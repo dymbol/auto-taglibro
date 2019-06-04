@@ -85,15 +85,11 @@ if os.environ.get('DEV_ENV') == 'True':
     }
 else:
     import dj_database_url
-    import django_heroku
-
-    django_heroku.settings(locals())
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL')
             )
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
