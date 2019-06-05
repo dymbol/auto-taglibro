@@ -33,6 +33,6 @@ ENV DATABASE_URL=mysql://${MYSQL_DATABASE}:${MYSQL_PASSWORD}@${MYSQL_HOST}/${MYS
 ARG TelegramToken
 ENV TelegramToken={$TelegramToken}
 
-RUN apt-get update && apt-get  install -y python3 python3-pip postgresql-server-dev-all libmysqlclient-dev
+RUN apt-get update && apt-get  install -y python3 python3-pip postgresql-server-dev-all libmysqlclient-dev mariadb-client
 RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
 RUN pip3 install pylama
