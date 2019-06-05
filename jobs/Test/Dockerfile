@@ -1,11 +1,5 @@
 #Docker file used for testing purposes (Jenkins etc)
-
-#FROM mariadb
-#ENV MYSQL_ROOT_PASSWORD dev_password
-#ENV MYSQL_DATABASE autotaglibro
-
-
-#FROM ubuntu:18.04 AS autotaglibro_server
+FROM ubuntu:18.04 AS autotaglibro_tests
 ADD . /autotaglibro
 WORKDIR . /autotaglibro
 
