@@ -1,5 +1,5 @@
 #Docker file used for testing purposes (Jenkins etc)
-FROM ubuntu:18.04 AS autotaglibro_tests
+FROM ubuntu:18.04
 ADD . /autotaglibro
 WORKDIR . /autotaglibro
 
