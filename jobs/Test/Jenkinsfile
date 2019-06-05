@@ -3,13 +3,17 @@ pipeline {
   agent {
     dockerfile {
       filename 'jobs/Test/Dockerfile'
-      args '--entrypoint="/docker-entrypoint.sh"'
     }
   }
   stages {
     stage('Checkout'){
       steps {
         checkout scm
+      }
+    }
+    stage('create database') {
+      steps {
+        sh '/autotaglibro/jobs/Test/create_database.sh'
       }
     }
     stage('Install pip requierments') {
@@ -32,7 +36,7 @@ pipeline {
         sh 'pylint --load-plugins pylint_django /autotaglibro/journal/'
       }
     }
-    stage('pucodestyle tests') {
+    stage('pycodestyle tests') {
       steps {
         sh 'pycodestyle /autotaglibro/journal/views.py'
         sh 'pycodestyle /autotaglibro/journal/tests.py'
@@ -48,6 +52,11 @@ pipeline {
         sh 'pydocstyle /autotaglibro/journal/forms.py'
         sh 'pydocstyle /autotaglibro/journal/extras.py'
         sh 'pydocstyle /autotaglibro/journal/templatetags/tags.py'
+      }
+    }
+    stage('drop database') {
+      steps {
+        sh '/autotaglibro/jobs/Test/drop_database.sh'
       }
     }
   }
