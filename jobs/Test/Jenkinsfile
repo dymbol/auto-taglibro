@@ -25,10 +25,6 @@ pipeline {
       steps {
         sh 'rm -rf /autotaglibro/journal/migrations'
         sh 'python3 manage.py makemigrations'
-      }
-    }
-    stage('Make migrations') {
-      steps {
         sh 'python3 manage.py migrate'
       }
     }
