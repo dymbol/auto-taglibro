@@ -27,7 +27,7 @@ pipeline {
         sh 'rm -rf journal/migrations/* '
         sh 'python3 manage.py makemigrations journal'
         sh 'python3 manage.py migrate'
-        sh 'python3 manage.py collectstatic'
+        sh 'echo yes | python3 manage.py collectstatic'
       }
     }
     stage('Static code test') {
