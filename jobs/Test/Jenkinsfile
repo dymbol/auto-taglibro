@@ -19,6 +19,7 @@ pipeline {
     stage('Install pip requierments') {
       steps {
         sh 'pip3 install -r requirements.txt'
+        sh 'pip3 install -r jobs/Test/requirements.txt'
       }
     }
     stage('FRESH DB: database migrations') {
