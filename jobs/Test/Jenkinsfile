@@ -21,11 +21,12 @@ pipeline {
         sh 'pip3 install -r requirements.txt'
       }
     }
-    stage('Clean migrations') {
+    stage('FRESH DB: database migrations') {
       steps {
         sh 'rm -rf journal/migrations/* '
         sh 'python3 manage.py makemigrations journal'
         sh 'python3 manage.py migrate'
+        sh 'python3 manage.py collectstatic'
       }
     }
     stage('Static code test') {
