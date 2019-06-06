@@ -23,9 +23,7 @@ pipeline {
     }
     stage('Clean migrations') {
       steps {
-        sh 'rm -rf /autotaglibro/journal/migrations/*'
-        sh 'python3 manage.py makemigrations'
-        sh 'python3 manage.py migrate'
+        sh 'rm -rf /autotaglibro/journal/migrations/* && python3 manage.py makemigrations && python3 manage.py migrate'
       }
     }
     stage('Static code test') {
