@@ -13,17 +13,19 @@ pipeline {
     }
     stage('create database') {
       steps {
-        sh '/autotaglibro/jobs/Test/create_database.sh'
+        sh 'jobs/Test/create_database.sh'
       }
     }
     stage('Install pip requierments') {
       steps {
-        sh 'pip3 install -r /autotaglibro/requirements.txt'
+        sh 'pip3 install -r requirements.txt'
       }
     }
     stage('Clean migrations') {
       steps {
-        sh 'rm -rf /autotaglibro/journal/migrations/* && python3 manage.py makemigrations && python3 manage.py migrate'
+        sh 'rm -rf journal/migrations/* '
+        sh 'python3 manage.py makemigrations'
+        sh 'python3 manage.py migrate'
       }
     }
     stage('Static code test') {
@@ -33,30 +35,30 @@ pipeline {
     }
     stage('pylint tests') {
       steps {
-        sh 'pylint --load-plugins pylint_django /autotaglibro/journal/'
+        sh 'pylint --load-plugins pylint_django journal/'
       }
     }
     stage('pycodestyle tests') {
       steps {
-        sh 'pycodestyle /autotaglibro/journal/views.py'
-        sh 'pycodestyle /autotaglibro/journal/tests.py'
-        sh 'pycodestyle /autotaglibro/journal/forms.py'
-        sh 'pycodestyle /autotaglibro/journal/extras.py'
-        sh 'pycodestyle /autotaglibro/journal/templatetags/tags.py'
+        sh 'pycodestyle journal/views.py'
+        sh 'pycodestyle journal/tests.py'
+        sh 'pycodestyle journal/forms.py'
+        sh 'pycodestyle journal/extras.py'
+        sh 'pycodestyle journal/templatetags/tags.py'
       }
     }
     stage('pydocstyle tests') {
       steps {
-        sh 'pydocstyle /autotaglibro/journal/views.py'
-        sh 'pydocstyle /autotaglibro/journal/tests.py'
-        sh 'pydocstyle /autotaglibro/journal/forms.py'
-        sh 'pydocstyle /autotaglibro/journal/extras.py'
-        sh 'pydocstyle /autotaglibro/journal/templatetags/tags.py'
+        sh 'pydocstyle journal/views.py'
+        sh 'pydocstyle journal/tests.py'
+        sh 'pydocstyle journal/forms.py'
+        sh 'pydocstyle journal/extras.py'
+        sh 'pydocstyle journal/templatetags/tags.py'
       }
     }
     stage('drop database') {
       steps {
-        sh '/autotaglibro/jobs/Test/drop_database.sh'
+        sh 'jobs/Test/drop_database.sh'
       }
     }
   }
