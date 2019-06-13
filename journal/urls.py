@@ -21,4 +21,5 @@ urlpatterns = [
     path('tmpl_action_add/<int:car_id>', views.add_tmpl_action, name="add_tmpl_action"),
     path('notify', views.send_notifications, name="send_notifications"),
     path('get_file/<int:file_id>', views.get_file, name='get_file')
+    path('TestConnection', views.TestConnection, name='TestConnection')
 ]

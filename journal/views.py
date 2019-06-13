@@ -326,9 +326,6 @@ def send_notifications(request):
             else:
                 status = "2"
                 msg = "Authentication problem: No user"
-
-
-
         else:
             status = "3"
             msg = "Provide username and password fields in POST method"
@@ -337,3 +334,13 @@ def send_notifications(request):
         msg = "POST method required"
 
     return JsonResponse({'status': status, 'msg': msg})
+
+
+@csrf_exempt
+def TestConnection(request):
+    try:
+        Car.objects.count()
+        return JsonResponse({'status': "database connection ok"})
+    except:
+        print("Błąd połączenia z bazą danych")
+        return JsonResponse({'status': "database connection error"})
