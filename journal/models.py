@@ -137,3 +137,16 @@ class Action(models.Model):
             return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.title)
 
 
+class Note(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    title = models.CharField(max_length=224, blank=True, null=True)
+    desc = models.TextField(blank=True, null=True)
+    attachement = models.ForeignKey(File, on_delete=models.CASCADE, blank=True, null=True)
+    cost = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)
+    todo = models.BooleanField()  # is it todo task ?
+    todo_priority = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)  #  priority of todo task
+    todo_done = models.BooleanField()  # is it todo task ?
+
+    def __str__(self):
+        return f'{self.car}: {self.title}'
+

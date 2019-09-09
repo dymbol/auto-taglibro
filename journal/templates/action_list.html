@@ -8,7 +8,7 @@
     <div class="col-lg-12">
       <h1>{{ action_list.1.ActionTemplate.car.manufacturer }} {{ action_list.1.ActionTemplate.car.model }}</h1>
       <p><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'add_action' action_list.0.ActionTemplate.car.id %}'">Dodaj akcję</button></p>
-      <table class="table table-striped small">
+      <table class="table table-striped small" id="action_list">
         <thead>
             <tr>
               <th scope="col">#</th>
@@ -57,6 +57,10 @@
             {% endfor %}
         </tbody>
       </table>
+      <script>$(document).ready( function () {
+                    $('#action_list').DataTable();
+                  } );
+      </script>
 
     </div>
 

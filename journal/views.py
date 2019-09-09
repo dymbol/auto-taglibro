@@ -194,6 +194,22 @@ def get_file(request, file_id):
 
 
 @login_required
+def todo_list(request, car_id):
+    context = {}
+    context["todo_list"] = Note.objects.filter(car__id=car_id).order_by('todo_priority')
+    context["car"] = Car.objects.filter(id=car_id)[0]
+    return render(request, 'todo.html', context)
+
+
+@login_required
+def notes_list(request, car_id):
+    context = {}
+    context["notes_list"] = Note.objects.filter(car__id=car_id)
+    context["car"] = Car.objects.filter(id=car_id)[0]
+    return render(request, 'notes.html', context)
+
+
+@login_required
 def tmpl_action(request, tmplaction_id):
     context = {}
     context["TmplAction"] = ActionTemplate.objects.filter(id=tmplaction_id)[0]

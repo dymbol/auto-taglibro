@@ -33,10 +33,12 @@
     <div class="col-lg-5">
       <ul class="list-group">
         <li class="list-group-item">
-          <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'update_milage' Car.id %}'">Wpisz przebieg</button>
+          <button type="button" class="btn btn-success" onclick="window.location.href='{% url 'update_milage' Car.id %}'">Wpisz przebieg</button>
         </li>
         <li class="list-group-item">
           <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'add_action' Car.id %}'">Dodaj akcję</button>
+          <button type="button" class="btn btn-warning" onclick="window.location.href='{% url 'todo_list' Car.id %}'">lista ToDo</button>
+          <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'notes_list' Car.id %}'">Notatki</button>
         </li>
         <li class="list-group-item">
           <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'files' Car.id %}'">Pliki</button>
