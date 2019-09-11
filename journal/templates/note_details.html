@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load tags %}
+{% load static from staticfiles %}
+{% block primary %}
+
+  <!-- Heading Row -->
+  <div class="row my-4">
+    <div class="col-lg-6">
+      <h1>{{ note.title}}</h1>
+      {{ note.desc }}
+    </div>
+  </div>
+  <!-- /.row -->
+{% endblock %}

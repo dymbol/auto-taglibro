@@ -210,6 +210,23 @@ def notes_list(request, car_id):
 
 
 @login_required
+def note_details(request, note_id):
+    context = {}
+    context["note"] = Note.objects.filter(id=note_id)[0]
+    return render(request, 'note_details.html', context)
+
+
+@login_required
+def note_status_change(request, note_id):
+    context = {}
+    note_tmp = Note.objects.filter(id=note_id)[0]
+    note_tmp.todo_done = True
+    note_tmp.save()
+    return redirect('todo_list', car_id=note_tmp.car.id)
+
+
+
+@login_required
 def tmpl_action(request, tmplaction_id):
     context = {}
     context["TmplAction"] = ActionTemplate.objects.filter(id=tmplaction_id)[0]

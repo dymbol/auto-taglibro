@@ -8,12 +8,11 @@
     <div class="col-lg-12">
       <h1>{{ car }} - Notatki</h1>
       <p><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'admin:journal_note_add' %}'">Dodaj</button></p>
-      <table class="table table-striped small" id="notes_list">
+      <table class="table table-striped small" id="todo_list">
         <thead>
             <tr>
               <th scope="col">#</th>
               <th>Tytuł</th>
-              <th>Opis</th>
               <th>Pliki</th>
             </tr>
         </thead>
@@ -22,24 +21,18 @@
                 {% if element.todo is False %}
                     <tr>
                       <th scope="row"> {{ forloop.counter }}</th>
-                      <td>{{ element.title }}</td>
-                      <td>{{ element.desc }}</td>
+                      <td>{{ element.title }} <a href="{% url 'note_details' element.id %}"><i class="icon_info"></i></a> </td>
                       {% if element.attachement %}
                         <td><a href="{% url 'get_file' element.attachement.id %}">{{ element.attachement.name }}</a></td>
                       {% else %}
                         <td>-</td>
                       {% endif %}
-
-
                     </tr>
                 {% endif %}
             {% endfor %}
         </tbody>
       </table>
-      <script>$(document).ready( function () {
-                    $('#notes_list').DataTable();
-                  } );
-      </script>
+
 
 
     </div>

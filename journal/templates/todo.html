@@ -13,7 +13,6 @@
             <tr>
               <th scope="col">#</th>
               <th>Tytuł</th>
-              <th>Opis</th>
               <th>Pliki</th>
               <th>Przewidywany koszt</th>
               <th>Priorytet</th>
@@ -25,29 +24,25 @@
                 {% if element.todo is True %}
                     <tr>
                       <th scope="row"> {{ forloop.counter }}</th>
-                      <td>{{ element.title }}</td>
-                      <td>{{ element.desc }}</td>
+                      <td>{{ element.title }} <a href="{% url 'note_details' element.id %}"><i class="icon_info"></i></a> </td>
                       {% if element.attachement %}
                         <td><a href="{% url 'get_file' element.attachement.id %}">{{ element.attachement.name }}</a></td>
                       {% else %}
                         <td>-</td>
                       {% endif %}
-                      <td>{{ element.cost }}</td>
+                      <td>{{ element.cost|default_if_none:"-" }}</td>
                       <td>{{ element.todo_priority }}</td>
                       {% if element.todo_done is True %}
                         <td><span class="badge badge-success">zrobione</span></td>
                       {% else %}
-                        <td><span class="badge badge-danger">nie zrobione</span></td>
+                        <td><span class="badge badge-danger" onclick="window.location.href='{% url 'note_status_change' element.id %}'" >nie zrobione</span></td>
                       {% endif %}
                     </tr>
                 {% endif %}
             {% endfor %}
         </tbody>
       </table>
-      <script>$(document).ready( function () {
-                    $('#todo_list').DataTable();
-                  } );
-      </script>
+
 
 
     </div>

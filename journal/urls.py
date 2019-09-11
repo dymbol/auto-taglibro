@@ -23,5 +23,8 @@ urlpatterns = [
     path('get_file/<int:file_id>', views.get_file, name='get_file'),
     path('todo/<int:car_id>', views.todo_list, name='todo_list'),
     path('notes/<int:car_id>', views.notes_list, name='notes_list'),
+    path('note_details/<int:note_id>', views.note_details, name='note_details'),
+    path('note_status_change/<int:note_id>', views.note_status_change, name='note_status_change'),
+
     path('TestConnection', views.TestConnection, name='TestConnection')
 ]
