@@ -44,4 +44,4 @@ RUN echo yes | python3 manage.py collectstatic
 
 EXPOSE 8000
 
-CMD demo/create_admin.py | python3 manage.py shell && python3 manage.py runserver 0.0.0.0:8001
+CMD python3 manage.py migrate && cat demo/create_admin.py | python3 manage.py shell && python3 manage.py runserver 0.0.0.0:8001
