@@ -22,7 +22,8 @@ DEV environment:
  * DEBUG           #True or False
  * DEV_ENV=True
 
-You can simply build docker image:
+You can simply build docker image and try application.
+Default user and password is `at`
 ```
 docker build -t autotaglibro  \
     --build-arg DEBUG=True \

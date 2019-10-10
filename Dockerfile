@@ -41,6 +41,7 @@ RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
 RUN pip3 install -r requirements.txt
 RUN python3 manage.py migrate
 RUN echo yes | python3 manage.py collectstatic
-#RUN python3 manage.py runserver
+
 EXPOSE 8000
-CMD python3 manage.py runserver 0.0.0.0:8000
+
+CMD demo/create_admin.py | python3 manage.py shell && python3 manage.py runserver 0.0.0.0:8000
