@@ -30,6 +30,9 @@ docker build -t autotaglibro  \
     --build-arg DATABASE_URL="sqlite:///autotaglibro/db.sqlite3;" \
     --build-arg DEV_ENV="True" \
     --build-arg TelegramToken="598551213:AAHVT4vMsBt_IUCrdvMyDsoTOSD5NoM0o1A" .
-docker run  -d  -v /host_dir_logs:/autotaglibro_logs -v /host_docs_dir:/autotaglibro/auto-taglibro/journal/static/car_files -p 8000:8000 autotaglibro
+docker run  -d  -v /host_dir_logs:/autotaglibro_logs \
+-v /host_docs_dir:/autotaglibro/auto-taglibro/journal/static/car_files \
+-e "ALLOWED_HOSTS=127.0.0.1" \
+-p 8000:8000 autotaglibro
 ```
 and use your browser with address http://127.0.0.1:8000
