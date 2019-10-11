@@ -1,3 +1,4 @@
+IaC/.vagrant/
 art*
 autotaglibro/staticfiles/*
 db.json

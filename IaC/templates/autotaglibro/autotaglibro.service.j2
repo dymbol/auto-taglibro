@@ -1,0 +1,25 @@
+[Unit]
+Description=Autotaglibro application
+After=syslog.target network.target
+
+[Service]
+Environment="DEBUG={{DEBUG}}"
+Environment="SECRET_KEY={{SECRET_KEY}}"
+Environment="DATABASE_URL={{DATABASE_URL}}"
+Environment="DEV_ENV={{DEV_ENV}}"
+Environment="TelegramToken={{TelegramToken}}"
+Environment="ALLOWED_HOSTS={{ALLOWED_HOSTS}}"
+Environment="DOCUMENTS_DIR={{DOCUMENTS_DIR}}"
+
+User={{run_user}}
+PIDFile={{log_dir}}/autotaglibro.pid
+WorkingDirectory={{ app_dir }}
+ExecStart=/usr/local/bin/uwsgi --ini {{ app_dir }}/uwsgi.ini
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

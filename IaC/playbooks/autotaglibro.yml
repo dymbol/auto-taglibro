@@ -1,0 +1,129 @@
+---
+- name: Autotaglibro install playbook
+  hosts: all
+  remote_user: root
+  become_method: sudo
+  vars:
+    log_dir: "/opt/autotaglibro_log"
+    docs_dir: "/opt/autotaglibro_docs"
+    app_dir: "/opt/autotaglibro"
+    run_user: "autotaglibro"
+    run_group: "autotaglibro"
+  vars_files:
+    -  "{{ playbook_dir }}/vars/autotaglibro_vars.yml"
+  tasks:
+    - name: Add the user autotaglibro
+      become: yes
+      user:
+        name: "{{ run_user }}"
+        shell: /bin/bash
+
+    - name: Install required packages
+      become: yes
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+        - python3
+        - python3-pip
+        - libmysqlclient-dev
+        - postgresql-common
+        - postgresql-server-dev-all
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Creates App directory
+      become: yes
+      file:
+        path: "{{ app_dir }}"
+        state: directory
+        owner: "{{ run_user }}"
+
+    - name: Creates App log directory
+      become: yes
+      file:
+        path: "{{ log_dir }}"
+        state: directory
+        owner: "{{ run_user }}"
+
+    - name: Creates App documents directory
+      become: yes
+      file:
+        path: "{{ docs_dir }}"
+        state: directory
+        owner: "{{ run_user }}"
+
+    - name: Get code
+      become: yes
+      git:
+        repo: https://github.com/dymbol/auto-taglibro
+        dest: "{{ app_dir }}"
+        force: yes
+
+    - name: Set code permissions
+      become: yes
+      file:
+        dest: "{{ app_dir }}"
+        owner: "{{ run_user }}"
+        group: "{{ run_group }}"
+        recurse: yes
+
+    - name: install Python requierments
+      become: yes
+      command: 'pip3 install -r "{{ app_dir }}"/requirements.txt'
+
+    - name: Prepare environment variables
+      become: yes
+      template:
+        src: ../templates/autotaglibro/autotaglibro_env.j2
+        dest: "/etc/profile.d/autotaglibro.sh"
+        mode: '0777'
+
+
+
+    - name: Adding autotaglibro crons
+      become: yes
+      cron:
+        name: "{{item.name}}"
+        minute: "{{item.minute}}"
+        hour: "{{item.hour}}"
+        user: "{{run_user}}"
+        job: "{{item.job}}"
+      with_items:
+        - { name: Dump database,  hour: 9 , minute: 0, job: 'python3 {{app_dir}}/manage.py dumpdata --exclude auth.permission --exclude contenttypes --indent 2 > {{docs_dir}}/db.json'}
+        - { name: Notify autotaglibro not important checs, weekday: 2 , hour: 11 , minute: 0, job: 'curl -d "username=admin&password=hthththth&check_important=0" -X POST https://gr/notify'}
+        - { name: Notify autotaglibro important checs, hour: 11 , minute: 0, job: 'curl -d "username=admin&password=ghthtrhth&check_important=1" -X POST https://grgr/notify'}
+    - name: Configuring uWSGI
+      become: yes
+      template:
+        src: ../templates/autotaglibro/uwsgi.j2
+        dest: "{{ app_dir }}//uwsgi.ini"
+
+    - name: Adding systemd Service
+      become: yes
+      template:
+        src: ../templates/autotaglibro/autotaglibro.service.j2
+        dest: /etc/systemd/system/autotaglibro.service
+        owner: root
+        group: root
+        mode: 0664
+
+    - name: Reloading systemd
+      become: yes
+      shell: systemctl daemon-reload
+
+    - name: Disabling autotaglibro service
+      become: yes
+      shell: systemctl disable autotaglibro
+
+    - name: Enabling autotaglibro service
+      become: yes
+      shell: systemctl enable autotaglibro
+
+    - name: Starting autotaglibro service
+      become: yes
+      shell: systemctl restart autotaglibro
+
+    - name: Applaying migrations
+      command: "/etc/profile.d/autotaglibro.sh && python3 {{ app_dir }}/manage.py  migrate"
+      become_user: "{{run_user}}"

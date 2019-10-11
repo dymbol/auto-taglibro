@@ -1,0 +1,73 @@
+---
+- name: manage base linux hosts in my test domain
+  hosts: all
+  remote_user: root
+  become_method: sudo
+  vars:
+    main_password: "romanroman"
+    oper_password: "operoper"
+    oper_user: java_academy
+    ssh_keys_url: "/home/dymbol/.ssh/id_rsa.pub"
+  tasks:
+    - name: Change root password
+      become: yes
+      shell: 'echo "root:{{main_password}}" | chpasswd'
+
+    - name: Set timezone
+      become: yes
+      shell: 'timedatectl set-timezone Europe/Warsaw'
+
+    - name: Create operating user
+      become: no
+      user:
+        name: "{{oper_user}}"
+        shell: /bin/bash
+        state: present
+        create_home: true
+
+    - name: Add operating user to sudo
+      become: yes
+      user:
+        name: "{{oper_user}}"
+        state: present
+        append: true
+        groups: sudo
+
+    - name: Change operating user password
+      become: yes
+      shell: 'echo "{{oper_user}}:{{oper_password}}" | chpasswd'
+
+    - name: Set authorized key taken from file
+      become: yes
+      authorized_key:
+        user: "{{oper_user}}"
+        state: present
+        key: "{{ lookup('file', ssh_keys_url) }}"
+
+    - name: Set authorized key taken from file
+      become: yes
+      authorized_key:
+        user: "root"
+        state: present
+        key: "{{ lookup('file', ssh_keys_url) }}"
+
+    - name: Install packages
+      become: yes
+      apt:
+        name:
+          - sudo
+          - curl
+          - screen
+          - git
+          - vim
+          - mc
+          - htop
+          - unattended-upgrades
+          - net-tools
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Cleaning
+      become: yes
+      shell: apt clean && apt autoclean

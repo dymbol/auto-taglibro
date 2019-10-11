@@ -1,0 +1,7 @@
+DEBUG: "False"
+SECRET_KEY: "7v6576vbfewjkfregerhik54mnhyjskj5"
+DATABASE_URL: "sqlite:////opt/autotaglibro/db.sqlite3"
+DEV_ENV: "False"
+TelegramToken: "8j8h98j990:78sfvrejrfg"
+ALLOWED_HOSTS: "127.0.0.1"
+DOCUMENTS_DIR: "/opt/autotaglibro_docs"
