@@ -125,5 +125,5 @@
       shell: systemctl restart autotaglibro
 
     - name: Applaying migrations
-      command: "/etc/profile.d/autotaglibro.sh && python3 {{ app_dir }}/manage.py  migrate"
+      command: ". /etc/profile.d/autotaglibro.sh && python3 {{ app_dir }}/manage.py  migrate"
       become_user: "{{run_user}}"
