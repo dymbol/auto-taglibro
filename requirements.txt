@@ -9,3 +9,4 @@ python-telegram-bot
 uwsgi
 mysqlclient
 django-sendfile==0.3.11
+django-prometheus
