@@ -22,25 +22,28 @@ def action_extra_days_to_nice_date(days_count):
             m_value = "miesięce"
 
 
-    if months == 0:
-        return f'{days_count} dni'
-    elif months > 0 and months < 12:
-        return f'{months} {m_value}'
-    elif months == 12:
-        return f'1 rok'
-    elif months > 12 and months < 24:
-        if round(months%12) != 0:
-            return f'{months // 12} rok i {round(months % 12)} {m_value}'
-        else:
-            return f'{months // 12} rok'
-    elif months >= 24:
-        if round(months % 12) != 0:
-            return f'{round(months/12)} lata i {round(months%12)} {m_value}'
-        else:
-            if round(months / 12) < 5:
-                return f'{months // 12} lata'
+    if days_count > 0:
+        if months == 0:
+            return f'{days_count} dni'
+        elif months > 0 and months < 12:
+            return f'{months} {m_value}'
+        elif months == 12:
+            return f'1 rok'
+        elif months > 12 and months < 24:
+            if round(months%12) != 0:
+                return f'{months // 12} rok i {round(months % 12)} {m_value}'
             else:
-                return f'{months // 12} lat'
+                return f'{months // 12} rok'
+        elif months >= 24:
+            if round(months % 12) != 0:
+                return f'{round(months/12)} lata i {round(months%12)} {m_value}'
+            else:
+                if round(months / 12) < 5:
+                    return f'{months // 12} lata'
+                else:
+                    return f'{months // 12} lat'
+    else:
+        return "0 dni"
 
 
 @register.filter
