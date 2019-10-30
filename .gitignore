@@ -2,6 +2,7 @@ art*
 autotaglibro/staticfiles/*
 db.json
 #IDEA IDE
+autotaglibro/.idea/*
 .idea/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -106,3 +107,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+/autotaglibro/.idea/

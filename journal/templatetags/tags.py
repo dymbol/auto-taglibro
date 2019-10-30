@@ -11,13 +11,36 @@ def action_extra_days_to_nice_date(days_count):
     :return: string
     """
     months = round(days_count / 30)
+
+    m_value = ""  # odmiana słowa miesiąc
+    if round(months % 12) != 0:
+        if round(months % 12) >= 5:
+            m_value = "miesięcy"
+        elif round(months % 12) == 1:
+            m_value = "miesiąc"
+        elif round(months % 12) in [2, 3, 4]:
+            m_value = "miesięce"
+
+
     if months == 0:
         return f'{days_count} dni'
-    else:
-        if months == 1:
-            return f'{months} miesiąc'
+    elif months > 0 and months < 12:
+        return f'{months} {m_value}'
+    elif months == 12:
+        return f'1 rok'
+    elif months > 12 and months < 24:
+        if round(months%12) != 0:
+            return f'{months // 12} rok i {round(months % 12)} {m_value}'
         else:
-            return f'{months} miesięcy'
+            return f'{months // 12} rok'
+    elif months >= 24:
+        if round(months % 12) != 0:
+            return f'{round(months/12)} lata i {round(months%12)} {m_value}'
+        else:
+            if round(months / 12) < 5:
+                return f'{months // 12} lata'
+            else:
+                return f'{months // 12} lat'
 
 
 @register.filter
