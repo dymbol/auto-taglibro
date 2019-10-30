@@ -14,7 +14,7 @@
         <p><span class="font-weight-bold">Deadline: </span>{{ TmplAction.action_end_date|default_if_none:"-" }}</p>
         <p><span class="font-weight-bold">Produkt: </span>{{ TmplAction.product|default_if_none:"-" }}</p>
         <p><span class="font-weight-bold">Ilość produktu: </span>{{ TmplAction.product_quantity|default_if_none:"-" }}</p>
-        <p><span class="font-weight-bold">Pozostało dni: </span>
+        <p><span class="font-weight-bold">Pozostało czasu: </span>
           {% if TmplAction.id|action_extra_info == "KATASTROFA" %}
             <span class="text-danger">
           {% endif %}
@@ -25,7 +25,7 @@
             <span >
 
           {% endif %}
-              {{TmplAction.id|action_extra_data_days_left|default_if_none:"-"}}
+              {{TmplAction.id|action_extra_data_time_left|default_if_none:"-"}}
             </span>
 
 
@@ -41,10 +41,10 @@
           {% endif %}
           {% if TmplAction.id|action_extra_info == "NORMA" %}
             <span >
-
           {% endif %}
-              {{TmplAction.id|action_extra_data_milage_left|default_if_none:"-"}}
-            </span>
+            {{TmplAction.id|action_extra_data_milage_left|default_if_none:"-"}}
+          </span>
+
 
         </p>
 

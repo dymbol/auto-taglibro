@@ -13,9 +13,8 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Tytuł</th>
-
               <th scope="col">okres [km]</th>
-              <th scope="col">okres [miesięcy]</th>
+              <th scope="col">okres czasowy</th>
               <th scope="col">deadline</th>
               <th></th>
             </tr>
@@ -38,25 +37,20 @@
                       </td>
                       <td>
                           {% if element.action_milage_period %}
-                             <a href="#" data-toggle="tooltip" title="pozostało {{element.id|action_extra_data_milage_left}} km">
+                             <a href="#" data-toggle="tooltip" title="Do wykonania akcji pozostało {{element.id|action_extra_data_milage_left}} km">
                                  {{ element.action_milage_period|default_if_none:"" }}
                              </a>
                           {% endif %}
                       </td>
                       <td>{% if element.action_days_period %}
 
-                            <a href="#" data-toggle="tooltip" title="(pozostało {{element.id|action_extra_data_days_left}} dni)">
-                                <span id="action_days_period{{element.id}}"></span>
-                                <script>
-                                    document.getElementById("action_days_period{{element.id}}").innerHTML=Math.round({{ element.action_days_period}}/30);
-                                </script>
-
-
+                            <a href="#" data-toggle="tooltip" title="Do wykonania akcji pozostało {{element.id|action_extra_data_time_left}}">
+                                {{element.action_days_period|action_extra_days_to_nice_date}}
                             </a>
                           {% endif %}
                       </td>
                       <td>{{ element.action_end_date|date:"d M Y"|default_if_none:"" }}</td>
-                      <td>edytuj</td>
+                      <td><a href="{% url 'admin:journal_actiontemplate_change' element.id %}">edytuj</a></td>
                   </tr>
 
             {% endfor %}
