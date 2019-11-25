@@ -77,7 +77,7 @@ def check_when_do_action(action_template_id):
             msg = "Pozostało mniej niż 1000 km do wykonania akcji!\n"
         elif milage_left < 0:
             disaster = True
-            msg = "Przekroczyłeś limit km dla akcji o {}\n".format(abs(milage_left))
+            msg = "Przekroczyłeś limit km dla akcji o {} km\n".format(abs(milage_left))
 
     if date_left is not None and warning is False and disaster is False:
         if 0 < (date_left - current_date).days < 7:
