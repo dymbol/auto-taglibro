@@ -35,13 +35,12 @@ ENV DATABASE_URL=mysql://$MYSQL_USER:$MYSQL_PASSWORD@$MYSQL_HOST:$MYSQL_PORT/$MY
 ARG TelegramToken
 ENV TelegramToken={$TelegramToken}
 
-RUN apt-get update && apt-get  install -y python3 python3-pip postgresql-server-dev-all libmysqlclient-dev mariadb-client
-RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
+RUN apt-get update && apt-get install -y python3 python3-pip postgresql-server-dev-all libmysqlclient-dev mariadb-client && apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
 
 RUN pip3 install -r requirements.txt
-RUN python3 manage.py migrate
-RUN echo yes | python3 manage.py collectstatic
+
+RUN rm -rf /autotaglibro/journal/migrations/
 
 EXPOSE 8000
 
-CMD demo/create_admin.py | python3 manage.py shell && python3 manage.py runserver 0.0.0.0:8000
+CMD ls && python3 manage.py makemigrations journal && python3 manage.py migrate && cat demo/create_admin.py | python3 manage.py shell && python3 manage.py runserver 0.0.0.0:8000
