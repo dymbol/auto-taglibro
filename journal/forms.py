@@ -7,6 +7,7 @@ class ActionTemplateForm(ModelForm):
     class Meta:
         model = ActionTemplate
         fields = ['periodic',
+                  'important',
                   'action_popular',
                   'title',
                   'desc',
@@ -18,6 +19,7 @@ class ActionTemplateForm(ModelForm):
                   ]
         labels = {
             'periodic': ('Akcja okresowa'),
+            'important': ('Częstsza weryfikacja'),
             'action_popular': ('Popularne akcje'),
             'title': ('Tytuł'),
             'desc': ('Opis'),
