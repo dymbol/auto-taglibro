@@ -120,27 +120,27 @@ def send_notifications(important_only):
         msg = ""
         cars = Car.objects.filter(owner=owner)
         for car in cars:
-            action_counter = 0
-            msg += "{} {}:\n".format(u'\U0001F699', car)
-            if important_only is True:
-                actmpl = ActionTemplate.objects.filter(car=car, important=True)
-            else:
-                actmpl = ActionTemplate.objects.filter(car=car)
+            if car.enable_notification == True:
+                action_counter = 0
+                msg += "{} {}:\n".format(u'\U0001F699', car)
+                if important_only is True:
+                    actmpl = ActionTemplate.objects.filter(car=car, important=True)
+                else:
+                    actmpl = ActionTemplate.objects.filter(car=car)
 
-            for action in actmpl:
-                check = check_when_do_action(action.id)
-                if check["warning"] or check["disaster"]:
-                    #print(check)
-                    action_counter += 1
-                    msg += "\t\t\t\t{} => {}\n".format(action.getName(), check["msg"])
-            if action_counter > 0:
-                # emoji list https://apps.timwhitlock.info/emoji/tables/unicode
-                try:
-                    bot.send_message(chat_id=str(owner.telegram_chat_id), text=msg)
-                except Exception as exc:
-                    print("Error sending message!")
-                    print(exc)
-                msg_list.append(msg)
-            else:
-                msg = ""
+                for action in actmpl:
+                    check = check_when_do_action(action.id)
+                    if check["warning"] or check["disaster"]:
+                        action_counter += 1
+                        msg += "\t\t\t\t{} => {}\n".format(action.getName(), check["msg"])
+                if action_counter > 0:
+                    # emoji list https://apps.timwhitlock.info/emoji/tables/unicode
+                    try:
+                        bot.send_message(chat_id=str(owner.telegram_chat_id), text=msg)
+                    except Exception as exc:
+                        print("Error sending message!")
+                        print(exc)
+                    msg_list.append(msg)
+                else:
+                    msg = ""
     return msg_list
