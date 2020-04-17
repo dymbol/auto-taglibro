@@ -43,7 +43,7 @@ class Car(models.Model):
     power = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)     # unit: Horse Power (KM)
     torque = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)     # unit: Nm
     engine_capacity = models.DecimalField(decimal_places=0, max_digits=9)   #unit: ccm
-    enable_notification = models.BooleanField(defaul=True)
+    enable_notification = models.BooleanField(default=True)
 
     def __str__(self):
         return "{} {} {}".format(self.manufacturer, self.model, round(self.engine_capacity/1000, 1))
