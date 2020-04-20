@@ -6,11 +6,8 @@
   <!-- Heading Row -->
   <div class="row my-4">
     <div class="col-lg-12">
-      <h1>{{ car.getName }} - Koszty napraw</h1>
-
-
+      <h3>{{ car.getName }} - Koszty napraw</h3>
       <canvas id="myChart" style="max-width: 500px;"></canvas>
-
       <script>
               var ctx = document.getElementById("myChart").getContext('2d');
               var myChart = new Chart(ctx, {
