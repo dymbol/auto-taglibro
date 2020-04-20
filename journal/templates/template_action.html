@@ -6,8 +6,8 @@
   <!-- Heading Row -->
   <div class="row my-4">
     <div class="col-lg-6">
-      <h1>{{ TmplAction.car.manufacturer }} {{ TmplAction.car.model }}</h1>
-      <h2>{{ TmplAction.getName }}</h2>
+      <h3>{{ TmplAction.car.getName }}</h3>
+      <h4>{{ TmplAction.getName }}</h4>
         <p><span class="font-weight-bold">Opis: </span>{{ TmplAction.getDesc|default_if_none:"-" }}</p>
         <p><span class="font-weight-bold">wymiana [km]: </span>{{ TmplAction.action_milage_period|default_if_none:"-" }}</p>
         <p><span class="font-weight-bold">wymiana [miesięcy]: </span>{{ TmplAction.action_days_period|default_if_none:"-" }}</p>

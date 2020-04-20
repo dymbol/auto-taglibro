@@ -6,7 +6,7 @@
   <!-- Heading Row -->
   <div class="row my-4">
     <div class="col-lg-12">
-      <h1>{{ service_plan.1.car.manufacturer }} {{ service_plan.1.car.model }} - Harmonogram prac</h1>
+      <h3>{{ service_plan.1.car.getName }} - Harmonogram prac</h3>
       <p><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'add_tmpl_action' car_id %}'">Dodaj wpis</button></p>
       <table class="table table-striped small">
           <thead>
