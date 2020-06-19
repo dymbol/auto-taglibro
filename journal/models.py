@@ -138,6 +138,26 @@ class Action(models.Model):
             return "{} {}".format(self.ActionTemplate.car, self.ActionTemplate.title)
 
 
+class Item(models.Model):
+    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    name = models.CharField(max_length=224, blank=True, null=True)
+    producer = models.CharField(max_length=224, blank=True, null=True)
+    PN = models.CharField(max_length=224, blank=True, null=True)
+    similar_product = models.CharField(max_length=224, blank=True, null=True)
+    SN = models.CharField(max_length=224, blank=True, null=True)
+    quantity = models.CharField(max_length=24, blank=True, null=True)  
+    quantity_unit = models.CharField(max_length=24, blank=True, null=True)  
+    description = models.CharField(max_length=224, blank=True, null=True)  
+    seller  = models.CharField(max_length=128, blank=True, null=True)  
+    bill_no = models.CharField(max_length=24, blank=True, null=True)  
+    buy_date = models.DateField()
+    cost = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.producer} {self.PN}'
+
+
+
 class Note(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     title = models.CharField(max_length=224, blank=True, null=True)
