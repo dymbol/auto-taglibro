@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load tags %}
+{% load static from staticfiles %}
+{% block primary %}
+
+  <!-- Heading Row -->
+  <div class="row my-4">
+    <div class="col-lg-6">
+      <h3>{{ action }}</h3>
+        
+        Użyte produkty: 
+        {% for product in products %}
+        <p>{{ product }}
+        {% endfor %}
+
+        
+    </div>
+  </div>
+  <!-- /.row -->
+
+
+
+
+
+
+
+
+
+{% endblock %}

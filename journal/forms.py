@@ -71,5 +71,13 @@ class ActionForm(forms.Form):
     show_on_list = forms.BooleanField(initial=True, label="Pokaż na liście napraw", required=False)
     comment = forms.CharField(widget=forms.Textarea, label="Opis", required=False)
     date = forms.DateField(label="Data", initial=datetime.now, widget=forms.DateInput(attrs={'type': 'date'}))
-    cost = forms.DecimalField(label="Koszt [PLN]", required=False)
-    product = forms.CharField(label="Użyty produkt", required=False)
+    cost = forms.DecimalField(label="Koszt robocizny [PLN]", required=False)
+
+
+class ItemToActionForm(forms.Form):
+    product = forms.ModelChoiceField(
+        queryset=Item.objects.filter(quantity__gt=0, used=False),
+        label="Produkt",
+        required=True
+    )
+    quantity = forms.FloatField(required=True,label="Ilość")

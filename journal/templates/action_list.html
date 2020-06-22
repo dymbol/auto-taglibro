@@ -14,7 +14,6 @@
               <th scope="col">#</th>
               <th>Tytuł</th>
               <th>Opis</th>
-              <th>Produkt</th>
               <th>Dokument</th>
               <th>Koszt [zł]</th>
               <th>Przebieg [km]</th>
@@ -25,7 +24,7 @@
             {% for element in action_list %}
                 {% if element.show_on_list is True %}
                     <tr>
-                      <th scope="row"> {{ forloop.counter }}</th>
+                      <th scope="row"><a href="{% url 'action' element.id %}">{{ forloop.counter }}</a> </th>
                       <td>{% if element.ActionTemplate.action_popular.title %}
                             {{ element.ActionTemplate.action_popular.title }}
                           {% endif %}
@@ -43,7 +42,6 @@
                           <br>
                           {{ element.comment }}
                       </td>
-                      <td>{{ element.product|default_if_none:"" }}</td>
                       {% if element.file %}
                         <td><a href="{% url 'get_file' element.file.id %}">{{ element.file.name }}</a></td>
                       {% else %}

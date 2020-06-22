@@ -14,6 +14,9 @@ urlpatterns = [
     path('plan/<int:car_id>', views.service_plan, name="service_plan"),
     path('action/list/<int:car_id>', views.action_list, name="action_list"),
     path('action/add/<int:car_id>', views.add_action, name="add_action"),
+    path('action/<int:action_id>', views.action, name="action"),
+    path('action_item/add/<int:action_id>', views.add_action_item, name="add_action_item"),
+    
     path('action_list_by_tmpl/<int:tmplaction_id>', views.action_list_by_tmpl, name="action_list_by_tmpl"),
     path('file/list/<int:car_id>', views.files, name="files"),
     path('file/add/<int:car_id>', views.add_file, name="add_file"),

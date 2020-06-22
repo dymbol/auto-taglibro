@@ -272,7 +272,6 @@ def add_action(request, car_id):
                 ActionTemplate=ActionTemplate.objects.filter(id=form['ActionTemplate'].value())[0],
                 date=form['date'].value(),
                 comment=form['comment'].value(),
-                product=form['product'].value(),
                 show_on_list=form['show_on_list'].value()
             )
 
@@ -291,7 +290,7 @@ def add_action(request, car_id):
                 new_action.cost = form['cost'].value()
 
             new_action.save()
-            return redirect('car', car_id)
+            return redirect('add_action_item', new_action.id)
         else:
             print(form.errors)
             print("NOT VALID")
@@ -309,6 +308,80 @@ def add_action(request, car_id):
         context['form'] = form
         context['car_id'] = car_id
         return render(request, 'add_action.html', context)
+
+
+@login_required
+def add_action_item(request, action_id):
+    context = {}
+    action = Action.objects.filter(id=action_id)[0]    
+    if request.method == "POST":
+        form = ItemToActionForm(request.POST)
+        if form.is_valid():
+            #odejmij uqntity , jesli wieksze od zero -> zrob pustą kopię
+            product = form['product'].value()
+            used_quantity = Decimal(form['quantity'].value())
+
+            item_found = Item.objects.filter(id=product)[0]
+
+            left_quantity = item_found.quantity - used_quantity
+            print(used_quantity,left_quantity)
+            if left_quantity > 0:              
+                # robimy kopie itema z pozostałą ilością quantity bez przypisanej action
+                item_new = Item.objects.filter(id=product)[0]
+                item_new.id = None
+                item_new.pk = None
+                item_new.description = f"Oryginalny koszt ilośći {item_new.quantity}: {item_new.cost} #### {item_new.description}"
+
+                item_new.quantity=left_quantity
+                item_new.used = False                
+                item_new.cost = 0
+                
+                print(item_new)
+                item_new.save()
+            
+                # przypisujemy action do starego item oraz uzytą quantity
+                item_found.action = action
+                item_found.quantity = used_quantity
+                item_found.used = True
+                item_found.save()
+
+            elif left_quantity == 0:
+                # tylko przypisujemy action do item oraz użytą quantity
+                item_found.action = action
+                item_found.quantity = used_quantity
+                item_found.used = True
+                item_found.save()
+            elif left_quantity < 0:               
+                # Return a 'disabled account' error message
+                form = ItemToActionForm()
+                context['form'] = form
+                context['action'] = action
+                messages.error(request, f"Zbyt mała ilość {item_found}")
+                return render(request, 'add_action_item.html', context) 
+   
+        
+          
+            # dodaj id action do itemu
+           
+            messages.info(request, f"Dodano produkt {item_found} do akcji")
+            return redirect('action', action_id)
+        else:
+            print(form.errors)
+            print("NOT VALID")
+            return redirect('add_action', car_id)
+    else:
+        form = ItemToActionForm()        
+        context['form'] = form
+        context['action'] = action
+        return render(request, 'add_action_item.html', context)
+
+
+@login_required
+def action(request, action_id):
+    context = {}
+    context["action"] = Action.objects.filter(id=action_id)[0]
+    context["products"] = Item.objects.filter(action=action_id)
+    return render(request, 'action.html', context)
 
 
 @csrf_exempt

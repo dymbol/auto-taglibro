@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 from django.contrib.auth.models import Group
 
-
 # Create your models here.
 class Owner(User):
     phone_tel = models.CharField(max_length=24, blank=True, null=True)
@@ -139,13 +138,14 @@ class Action(models.Model):
 
 
 class Item(models.Model):
-    action = models.ForeignKey(Action, on_delete=models.CASCADE)
+    action = models.ForeignKey(Action, on_delete=models.CASCADE,blank=True, null=True)
+    used = models.BooleanField(default=False)  
     name = models.CharField(max_length=224, blank=True, null=True)
     producer = models.CharField(max_length=224, blank=True, null=True)
     PN = models.CharField(max_length=224, blank=True, null=True)
     similar_product = models.CharField(max_length=224, blank=True, null=True)
     SN = models.CharField(max_length=224, blank=True, null=True)
-    quantity = models.CharField(max_length=24, blank=True, null=True)  
+    quantity = models.DecimalField(decimal_places=2, max_digits=9,blank=False, null=False)  
     quantity_unit = models.CharField(max_length=24, blank=True, null=True)  
     description = models.CharField(max_length=224, blank=True, null=True)  
     seller  = models.CharField(max_length=128, blank=True, null=True)  
@@ -154,7 +154,7 @@ class Item(models.Model):
     cost = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.name} - {self.producer} {self.PN}'
+        return f'{self.producer} {self.name}: quantity: {round(self.quantity,2)}{self.quantity_unit}'
 
 
 
