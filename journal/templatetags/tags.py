@@ -72,3 +72,9 @@ def action_extra_info(act_tmpl_id):
         return "UWAGA"
     else:
         return "NORMA"
+
+@register.filter
+def action_full_cost(action_id):
+    return extras.get_full_action_cost(action_id)
+
+    

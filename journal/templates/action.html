@@ -4,14 +4,71 @@
 {% block primary %}
 
   <!-- Heading Row -->
-  <div class="row my-4">
-    <div class="col-lg-6">
+  <div class="row my-2">
+    <div class="col-lg-8">
       <h3>{{ action }}</h3>
-        
-        Użyte produkty: 
-        {% for product in products %}
-        <p>{{ product }}
-        {% endfor %}
+        <p><span class="font-weight-bold">Opis: </span>{{ action.comment }}</p>
+        <p><span class="font-weight-bold">Data: </span>{{ action.date }}</p>
+        <p><span class="font-weight-bold">Przebieg: </span>{{ action.milage__milage }}</p>
+        <p><span class="font-weight-bold">Dokument: </span>{% if action.file %}<a href="{% url 'get_file' action.file.id %}">{{ action.file.name }}{% endif %}</a></p>
+        <table class="table table-striped small" id="action_list">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th>nazwa</th>
+              <th>użyta ilość</th>
+              <th>koszt [zł]</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</a> </th>
+                      <td>
+                        {{product.producer}} {{ product.name}}
+                      </td>
+                      <td>
+                        {{product.quantity}}
+                      </td>
+                      <td>
+                        {{product.cost}}
+                      </td>
+                      
+                    
+                    </tr>
+
+            {% endfor %}
+            <tr>
+                      <th scope="row">{{ forloop.counter }}</a> </th>
+                      <td>
+                        robocizna
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        {{action.cost}}
+                      </td>
+                      
+                    
+                    </tr>
+                    <tr>
+                      <th scope="row"></a> </th>
+                      <td>
+                        SUMA
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        <strong>{{sum_cost}}</strong>
+                      </td>
+                      
+                    
+                    </tr>
+        </tbody>
+      </table>
 
         
     </div>

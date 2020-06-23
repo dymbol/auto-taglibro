@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
+{% load tags %}
 {% block primary %}
 
   <!-- Heading Row -->
@@ -47,7 +48,7 @@
                       {% else %}
                         <td>-</td>
                       {% endif %}
-                      <td>{{ element.cost }}</td>
+                      <td>{{ element.id|action_full_cost }}</td>
                       <td>{{ element.milage.milage }}</td>
                       <td>{{ element.date|date:"d M Y" }}</td>
                     </tr>

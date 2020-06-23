@@ -7,6 +7,7 @@ urlpatterns = [
     path('login', views.login_user, name="login_user"),
     path('logout', views.logoutuser, name="logoutuser"),
     path('car_list', views.car_list, name="car_list"),
+    path('items', views.items, name="items"),
     path('car/<int:car_id>', views.car, name="car"),
     path('car/costs/<int:car_id>', views.show_costs, name="show_costs"),
     path('milage/<int:car_id>', views.milage_list, name="milage"),

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% load tags %}
+{% block primary %}
+
+  <!-- Heading Row -->
+  <div class="row my-4">
+
+    <div class="col-lg-12">
+      <h3> Lista produktów</h3>
+      
+      <table class="table table-striped small" id="action_list">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th>Nazwa</th>
+              <th>Opis</th>
+              <th>PN</th>
+              <th>Ilość</th>
+              <th>Data zakupu</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in items %}
+               
+                    <tr>
+                      <th scope="row"><a href="{% url 'admin:journal_item_change' element.id %}">{{ forloop.counter }}</a> </th>
+                      <td>{{element.producer}} {{element.name}}</td>
+                      <td>{{element.description}}</td>
+                      <td>{{element.producer}} {{element.PN}}</td>
+                      <td>{{element.quantity}} {{element.quantity_unit}}</td>
+                      <td>{{element.buy_date}}</td>
+                      
+                    </tr>
+                
+            {% endfor %}
+        </tbody>
+      </table>
+      <script>$(document).ready( function () {
+                    $('#action_list').DataTable();
+                  } );
+      </script>
+
+    </div>
+
+  </div>
+  <!-- /.row -->
+{% endblock %}

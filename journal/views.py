@@ -202,6 +202,13 @@ def todo_list(request, car_id):
 
 
 @login_required
+def items(request):
+    context = {}
+    context["items"] = Item.objects.filter(used=False)    
+    return render(request, 'items.html', context)
+
+
+@login_required
 def notes_list(request, car_id):
     context = {}
     context["notes_list"] = Note.objects.filter(car__id=car_id)
@@ -364,11 +371,11 @@ def add_action_item(request, action_id):
             # dodaj id action do itemu
            
             messages.info(request, f"Dodano produkt {item_found} do akcji")
-            return redirect('action', action_id)
+            return redirect('add_action_item', action_id)
         else:
             print(form.errors)
             print("NOT VALID")
-            return redirect('add_action', car_id)
+            return redirect('add_action_item', action_id)
     else:
         form = ItemToActionForm()        
         context['form'] = form
@@ -381,6 +388,7 @@ def action(request, action_id):
     context = {}
     context["action"] = Action.objects.filter(id=action_id)[0]
     context["products"] = Item.objects.filter(action=action_id)
+    context["sum_cost"] = extras.get_full_action_cost(action_id)
     return render(request, 'action.html', context)
 
 
