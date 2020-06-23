@@ -1,8 +1,24 @@
 """extra functions"""
-from journal.models import Action, Milage, ActionTemplate, Owner, Car
+from journal.models import *
 from datetime import datetime, timedelta, timezone
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+
+
+def get_full_action_cost(action_id):
+    action = Action.objects.filter(id=action_id)[0]
+    items = Item.objects.filter(action__id=action_id)
+
+    if action.cost:
+        cost = action.cost
+    else:
+        cost = 0
+
+    for item in items:
+        if item.cost:
+            cost = cost + item.cost            
+
+    return cost    
 
 
 def check_when_do_action(action_template_id):
