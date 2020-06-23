@@ -13,10 +13,10 @@
               var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                  labels: [{% for element in costs %} "{{element.date__year}}", {% endfor %}],
+                  labels: [{% for year,dcount in costs.items %} "{{year}}", {% endfor %}],
                   datasets: [{
                     label: 'PLN',
-                    data: [{% for element in costs %} "{{element.dcount}}".replace(",", "."), {% endfor %}],
+                    data: [{% for year,dcount in costs.items %} "{{dcount}}".replace(",", "."), {% endfor %}],
                     backgroundColor: [
                       'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',

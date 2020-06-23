@@ -150,7 +150,7 @@ class Item(models.Model):
     description = models.CharField(max_length=224, blank=True, null=True)  
     seller  = models.CharField(max_length=128, blank=True, null=True)  
     bill_no = models.CharField(max_length=24, blank=True, null=True)  
-    buy_date = models.DateField()
+    date = models.DateField()
     cost = models.DecimalField(decimal_places=0, max_digits=9, blank=True, null=True)
 
     def __str__(self):

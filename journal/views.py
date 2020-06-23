@@ -104,12 +104,20 @@ def service_plan(request, car_id):
 @login_required
 def show_costs(request, car_id):
     context = {}
+    context['costs']={}
+    
     action_list = Action.objects.filter(ActionTemplate__car_id=car_id).values('date__year').annotate(dcount=Sum('cost')).order_by('date__year')
-    for year_obj in action_list:
-        if year_obj["dcount"] is not None:
-            print(year_obj)
-    context["costs"] = action_list
+    items_list = Item.objects.filter(action__ActionTemplate__car_id=car_id).values('date__year').annotate(dcount=Sum('cost')).order_by('date__year')
+    for action_obj in action_list:
+        action_year = action_obj["date__year"]
+        context['costs'][action_year] = action_obj['dcount']
+
+        for it_obj in items_list:
+            it_year = it_obj["date__year"]
+            if action_year == it_year:
+               context['costs'][action_year] = it_obj['dcount']  + action_obj['dcount']
     context["car"] = Car.objects.filter(id=car_id)[0]
+    print(context)
     return render(request, 'costs.html', context)
 
 
