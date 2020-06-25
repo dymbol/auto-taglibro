@@ -53,6 +53,7 @@ def car_list(request):
     context["car_list"] = Car.objects.filter(owner=request.user)
     return render(request, 'car_list.html', context)
 
+
 @login_required
 def car(request, car_id):
     context = {}
@@ -70,11 +71,13 @@ def car(request, car_id):
         context["Last_milage"] = None
     return render(request, 'car.html', context)
 
+
 @login_required
 def milage_list(request, car_id):
     context = {}
     context["Milage"] = Milage.objects.filter(car_id=car_id).order_by('-date')
     return render(request, 'milage.html', context)
+
 
 @login_required
 def update_milage(request, car_id):
@@ -92,6 +95,7 @@ def update_milage(request, car_id):
         car = Car.objects.filter(id=car_id)[0]
         context["car"] = car
         return render(request, 'update_milage.html', context)
+
 
 @login_required
 def service_plan(request, car_id):
@@ -213,6 +217,8 @@ def todo_list(request, car_id):
 def items(request):
     context = {}
     context["items"] = Item.objects.filter(used=False)    
+    context["total_value"] = Item.objects.filter(used=False).aggregate(total_value=Sum('cost'))['total_value']
+    print(context["total_value"])
     return render(request, 'items.html', context)
 
 
