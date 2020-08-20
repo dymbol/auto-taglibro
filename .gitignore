@@ -108,3 +108,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 /autotaglibro/.idea/
+GetProdDataProxmox_LXC.sh
+nohup.out
+IaC/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory
+IaC/.vagrant/rgloader/loader.rb
