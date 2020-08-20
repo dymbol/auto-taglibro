@@ -142,7 +142,7 @@ def send_notifications(important_only):
                 if important_only is True:
                     actmpl = ActionTemplate.objects.filter(car=car, important=True)
                 else:
-                    actmpl = ActionTemplate.objects.filter(car=car)
+                    actmpl = ActionTemplate.objects.filter(car=car,important=False)
 
                 for action in actmpl:
                     check = check_when_do_action(action.id)
