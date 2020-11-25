@@ -27,10 +27,6 @@
           {% endif %}
               {{TmplAction.id|action_extra_data_time_left|default_if_none:"-"}}
             </span>
-
-
-
-
         </p>
         <p><span class="font-weight-bold">Pozostało kilometrów: </span>
           {% if TmplAction.id|action_extra_info == "KATASTROFA" %}

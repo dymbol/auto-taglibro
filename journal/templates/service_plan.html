@@ -28,10 +28,10 @@
                       <td>
                           {% if element.id|action_extra_info == "KATASTROFA" %}
                             <!-- https://www.elegantthemes.com/blog/resources/elegant-icon-font-->
-                                <i class="text-danger icon_tool"></i>
+                                 <i class="text-danger fas fa-wrench"></i>
                           {% endif %}
                           {% if element.id|action_extra_info == "UWAGA" %}
-                                <i class="text-warning icon_tool"></i>
+                                <i class="text-warning fas fa-wrench"></i>
                           {% endif %}
                           <a href="{% url 'tmpl_action' element.id %}">{{ element.getName }}</a>
                       </td>
