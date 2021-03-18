@@ -16,7 +16,7 @@ python-telegram-bot = "*"
 mysqlclient = "*"
 django-sendfile = "==0.3.11"
 django-prometheus = "*"
-Django = "==2.2.13"
+Django = "==2.2.18"
 uWSGI = "*"
 
 [requires]
